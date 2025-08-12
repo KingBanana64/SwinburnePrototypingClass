@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwlylhx3laqpu"]
+
+[ext_resource type="PackedScene" uid="uid://c1tv0oc6x7wtt" path="res://arrowSequenceTest/objects/key_listener.tscn" id="1_oeh1b"]
+[ext_resource type="PackedScene" uid="uid://bekkupxl4f2s7" path="res://arrowSequenceTest/objects/falling_key.tscn" id="2_otqo1"]
+
+[node name="level" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="KeyListener" parent="." instance=ExtResource("1_oeh1b")]
+position = Vector2(-70, 280)
+key_name = "button_left"
+
+[node name="KeyListener2" parent="." instance=ExtResource("1_oeh1b")]
+position = Vector2(70, 280)
+frame = 1
+key_name = "button_right"
+
+[node name="FallingKey" parent="." instance=ExtResource("2_otqo1")]
+position = Vector2(-70, -363)
