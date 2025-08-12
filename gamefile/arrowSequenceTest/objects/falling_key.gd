@@ -4,6 +4,10 @@ extends Sprite2D
 @export var fall_speed: float = 1.5
 
 var init_y_pos: float = -363.0
+var target_y_pos: float = 280.0 ## "passed_threshold" in tutorial
+
+# True if passed input frames
+var has_passed: bool = false
 
 func _init():
 	set_process(false)
@@ -12,11 +16,14 @@ func _init():
 func _process(delta: float) -> void:
 	global_position += Vector2(0, fall_speed)
 	
-	if global_position.y > 280.0 and not $Timer.is_stopped():
-		print($Timer.wait_time - $Timer.time_left)
-		$Timer.stop()
+	if global_position.y > target_y_pos and not $Timer.is_stopped():
+		has_passed = true
 
 func Setup(target_x: float, target_frame: int):
 	global_position = Vector2(target_x, init_y_pos)
 	frame = target_frame
 	set_process(true)
+
+
+func _on_destroy_timer_timeout() -> void:
+	queue_free()
