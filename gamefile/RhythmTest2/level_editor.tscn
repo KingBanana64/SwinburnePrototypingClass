@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvsacbsmhn3je"]
+
+[ext_resource type="Script" uid="uid://cjcj41myyk6rm" path="res://RhythmTest2/level_editor.gd" id="1_4q1kx"]
+
+[node name="LevelEditor" type="Node2D"]
+script = ExtResource("1_4q1kx")
