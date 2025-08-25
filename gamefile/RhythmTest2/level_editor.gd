@@ -11,7 +11,6 @@ var levelInfo = {
 }
 
 func _ready() -> void:
-	
 	if editMode:
 		pass
 	else:
