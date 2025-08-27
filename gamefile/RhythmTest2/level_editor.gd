@@ -2,21 +2,20 @@ extends Node2D
 
 ## Level Making, manually change to write Levels
 var editMode = false
-var current_level_name = "McDInThePentagon_short"
 ## left bracket is for the animal, right is for the player
 var EDIT_tap_times = [[],[]]
+var current_level_name = "McDInThePentagon_short"
 
 ## !!!FIX!!BUG!!! Name of node wont always be Test1
 @onready var input_handler = get_node("/root/Test1")
 
+## FOR "tap_times" - left bracket is for the animal, right is for the player
 var levelInfo = {
 	"McDInThePentagon" = {
-		## left bracket is for the animal, right is for the player
 		"tap_times": "[[1,2,3,4],[5,6,7,8]]"
 	},
-		"McDInThePentagon_short" = {
-		## left bracket is for the animal, right is for the player
-		"tap_times": "[[1.04620944444446, 1.49085230158733, 1.87279674603178, 2.21307452380957, 3.93529674603184, 4.26168755555566, 4.61605263492075, 4.94244152380963], [2.52557452380958, 2.91446341269848, 3.24085230158738, 3.58113007936517, 5.28296711111122, 5.64407822222233, 5.98435600000011, 6.32463377777788]]"
+	"McDInThePentagon_short" = {
+		"tap_times": "[[1.03194444444447, 1.43144434920638, 1.81813055555559, 2.17229722222227, 3.88115222222231, 4.25615222222232, 4.61726400000011, 4.95079574603185], [2.53372563492069, 2.88800088888895, 3.24216755555563, 3.56161200000008, 5.28412907936518, 5.62440685714296, 5.95774019047629, 6.29801796825407]]"
 	},
 }
 
@@ -36,8 +35,7 @@ func _process(delta: float) -> void:
 		elif Input.is_action_just_pressed("EDIT_Add"):
 			EDIT_tap_times[0].append(input_handler.time_passed)
 			pass
-	else:
-		pass
+
 
 func finish():
 	if editMode:

@@ -5,7 +5,7 @@ extends Node2D
 @onready var levelEditor = $LevelEditor
 
 ## delay of hitting buttons on time
-var delay = 0.5
+var delay = 0.1
 var time_passed
 var animal_queue = []
 var input_queue = []
@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 	
 	time_passed = timer.wait_time - timer.time_left
 	
+	## ----------------- INPUTS -----------------
 	if input_queue.size() > 0: 
 		## If next input has passed current time, pop and indicate fail
 		if input_queue.front() < (time_passed - delay):
@@ -29,6 +30,13 @@ func _process(delta: float) -> void:
 				print("KEY HIT")
 			else:
 				print("BAD INPUT")
+	
+	## ----------------- ANIMALS ----------------
+	if animal_queue.size() > 0:
+		if animal_queue.front() < time_passed:
+			print("BARK")
+			animal_queue.pop_front()
+		pass
 
 ## When song finishes
 func _on_song_length_timeout() -> void:
