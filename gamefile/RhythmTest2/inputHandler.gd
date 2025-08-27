@@ -5,7 +5,7 @@ extends Node2D
 @onready var levelEditor = $LevelEditor
 
 ## delay of hitting buttons on time
-var delay = 0.1
+var delay = 0.2
 var time_passed
 var animal_queue = []
 var input_queue = []
@@ -19,12 +19,12 @@ func _process(delta: float) -> void:
 	if input_queue.size() > 0: 
 		## If next input has passed current time, pop and indicate fail
 		if input_queue.front() < (time_passed - delay):
-			#print("time passed: " + str(time_passed) + ". | input queue front: " + str(input_queue.front()))
 			input_queue.pop_front()
 			print("KEY PASSED")
 		
 		## If Input pressed and input is close enough to current time, pop & indicate sucsess
 		if Input.is_action_just_pressed("tap"):
+			## !!FIX!! add animal collisions here
 			if input_queue.front() < (time_passed + delay):
 				input_queue.pop_front()
 				print("KEY HIT")
