@@ -1,9 +1,17 @@
 extends Node2D
 
 ## Level Making, manually change to write Levels
-var editMode = false
+var editMode = true
 ## left bracket is for the animal, right is for the player
-var EDIT_tap_times = [[],[]]
+## all animals[ animal 1[ bark[],tap[]], animal 2[bark[], tap[]]...]
+var EDIT_tap_times = [[[],[]]]
+var array = [[]]
+var EDIT_tap_keys = [
+	["EDIT_Bark1","EDIT_Tap1"],
+	["EDIT_Bark2","EDIT_Tap2"],
+	["EDIT_Bark3","EDIT_Tap3"],
+	## If want more inputs, place here...
+]
 var current_level_name = "McDInThePentagon_short"
 
 ## !!!FIX!!BUG!!! Name of node wont always be Test1
@@ -29,12 +37,21 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if editMode:
-		if Input.is_action_just_pressed("tap"):
-			EDIT_tap_times[1].append(input_handler.time_passed)
-			pass
-		elif Input.is_action_just_pressed("EDIT_Add"):
-			EDIT_tap_times[0].append(input_handler.time_passed)
-			pass
+		for i in range(0,3):
+			## if Input == any Bark key or Tap key:
+			if Input.is_action_just_pressed(EDIT_tap_keys[i][0]):
+				EDIT_tap_times[i][0].append(input_handler.time_passed)
+				print("barked")
+			elif Input.is_action_just_pressed(EDIT_tap_keys[i][1]):
+				EDIT_tap_times[i][0].append(input_handler.time_passed)
+				print("tapped")
+		
+		#if Input.is_action_just_pressed("tap"):
+			#EDIT_tap_times[1].append(input_handler.time_passed)
+			#pass
+		#elif Input.is_action_just_pressed("EDIT_Add"):
+			#EDIT_tap_times[0].append(input_handler.time_passed)
+			#pass
 
 
 func finish():
