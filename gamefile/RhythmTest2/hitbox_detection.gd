@@ -10,8 +10,8 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 			
 			## get child position of node
 			var i = 0
-			for node in get_parent().get_children():
-				if node.name == name:
+			for child in get_parent().get_children():
+				if child.name == name:
 					level.animalPetCheck(i)
 				else:
 					i+=1

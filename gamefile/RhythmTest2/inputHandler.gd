@@ -13,13 +13,12 @@ var animal_queue = [[]]
 var input_queue = [[]]
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	time_passed = timer.wait_time - timer.time_left
 	
 	## ----------------- INPUTS - PASS -----------------
 	if input_queue.size() > 0: 
-		#for inp in input_queue:
 		for ii in input_queue.size():
 			## If next input has passed current time, pop and indicate fail
 			if input_queue[ii].size() > 0:

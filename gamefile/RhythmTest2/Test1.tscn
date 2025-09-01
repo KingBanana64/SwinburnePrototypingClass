@@ -15,13 +15,13 @@ editMode = false
 [node name="AnimalAreas" type="Node2D" parent="."]
 
 [node name="catHitBox1" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
-position = Vector2(248, 314)
+position = Vector2(214, 384)
 
 [node name="catHitBox2" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
-position = Vector2(574, 333)
+position = Vector2(567, 384)
 
 [node name="catHitBox3" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
-position = Vector2(919, 345)
+position = Vector2(914, 385)
 
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song")]
 wait_time = 2.0
