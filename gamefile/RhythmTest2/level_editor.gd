@@ -11,7 +11,7 @@ var EDIT_tap_times = [[[],[]]]
 var array = [[]]
 
 ## !!FIX!! assign current_level_name by outside scene
-var current_level_name =  "DontMineAtNight" #"McDInThePentagon_short" #"McDInThePentagon"
+var current_level_name =  "McDInThePentagon_short" #"McDInThePentagon" #"DontMineAtNight"
 
 var levelInfo = {
 	"McDInThePentagon" = {
