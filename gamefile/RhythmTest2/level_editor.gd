@@ -1,7 +1,7 @@
 extends Node2D
 
 ## Level Making, manually change to write Levels
-var editMode = false
+@export var editMode = false
 ## left bracket is for the animal, right is for the player
 ## all animals[ animal 1[ bark[],tap[]], animal 2[bark[], tap[]]...]
 var EDIT_tap_times = [[[],[]]]
