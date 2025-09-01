@@ -1,7 +1,7 @@
 extends Node2D
 
 ## Level Making, manually change to write Levels
-var editMode = true
+var editMode = false
 ## left bracket is for the animal, right is for the player
 ## all animals[ animal 1[ bark[],tap[]], animal 2[bark[], tap[]]...]
 var EDIT_tap_times = [[[],[]]]
@@ -23,7 +23,7 @@ var levelInfo = {
 		"tap_times": "[[1,2,3,4],[5,6,7,8]]"
 	},
 	"McDInThePentagon_short" = {
-		"tap_times": "[[1.03194444444447, 1.43144434920638, 1.81813055555559, 2.17229722222227, 3.88115222222231, 4.25615222222232, 4.61726400000011, 4.95079574603185], [2.53372563492069, 2.88800088888895, 3.24216755555563, 3.56161200000008, 5.28412907936518, 5.62440685714296, 5.95774019047629, 6.29801796825407]]"
+		"tap_times": "[[[1.17954066666667, 1.480377, 1.84704366666666, 2.18077933333333], [2.53128333333333, 2.84794999999999, 3.19794999999999, 3.54794999999999]], [[3.91461666666666, 4.26461666666665], [5.29794999999998, 5.66461666666665]], [[4.59794999999999, 4.96461666666665], [5.98128333333332, 6.31461666666665]]]"
 	},
 }
 
@@ -40,10 +40,21 @@ func _process(delta: float) -> void:
 		for i in range(0,3):
 			## if Input == any Bark key or Tap key:
 			if Input.is_action_just_pressed(EDIT_tap_keys[i][0]):
+				## if array not large enough yet, add another array
+				if EDIT_tap_times.size() < (i+1):
+					EDIT_tap_times.append_array([[[],[]]])
+					print("extended")
+					
 				EDIT_tap_times[i][0].append(input_handler.time_passed)
 				print("barked")
+				
 			elif Input.is_action_just_pressed(EDIT_tap_keys[i][1]):
-				EDIT_tap_times[i][0].append(input_handler.time_passed)
+				## if array not large enough yet, add another array
+				if EDIT_tap_times.size() < (i+1):
+					EDIT_tap_times.append_array([[[],[]]])
+					print("extended")
+				
+				EDIT_tap_times[i][1].append(input_handler.time_passed)
 				print("tapped")
 		
 		#if Input.is_action_just_pressed("tap"):
