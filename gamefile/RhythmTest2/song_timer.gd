@@ -1,11 +1,15 @@
 extends Timer
 
-@onready var song = $"../Song"
+@export var song = Node2D
+
 
 func _ready() -> void:
-	start_song()
+	##start_song()
+	pass
 
-func start_song():
+func start_song(songTitle):
+	var music = load("res://songs/"+songTitle+".mp3")
+	song.stream = music
 	if song.stream == null:
 		print("BUG: No stream in Music player found")
 		return

@@ -1,70 +1,69 @@
 extends Node2D
 
+@onready var input_handler = get_node("/root/").get_child(0)
+@onready var songTimer = get_node("/root/Test1/SongLength/")
+
 ## Level Making, manually change to write Levels
 @export var editMode = false
 ## left bracket is for the animal, right is for the player
 ## all animals[ animal 1[ bark[],tap[]], animal 2[bark[], tap[]]...]
 var EDIT_tap_times = [[[],[]]]
 var array = [[]]
+
+## !!FIX!! assign current_level_name by outside scene
+var current_level_name =  "McDInThePentagon_short" #"McDInThePentagon"
+
+var levelInfo = {
+	"McDInThePentagon" = {
+		"tap_times": "[[[1.03749699999918, 1.45416366666566, 1.87435699999931, 2.19974612121168, 6.73412833333649, 7.4257950000037, 12.3424616666743, 12.6966283333412, 13.0091283333415, 13.3382950000084, 15.7690500000103, 17.894050000012, 19.3065500000132, 20.6357166666809, 23.3982166666831, 24.0607166666836, 26.9340560000192, 29.0048893333542, 29.7048893333548, 34.6132226666909, 34.9757226666909, 35.2840560000242, 35.6048893333575, 37.7111560000241, 38.4069893333574, 40.1653226666906, 40.8653226666906, 41.6111560000238, 42.2736560000238, 42.9611560000238, 43.6528226666904, 45.7236560000236, 46.0861560000236, 46.4486560000236, 46.8028226666902, 52.0300526666899, 54.7633860000231, 56.8842193333563, 57.6300526666896], [2.56261133333317, 2.92094466666679, 3.25427800000039, 3.58829500000065, 8.11746166667092, 8.78412833333812, 13.7257950000087, 14.0841283333423, 14.4148833333426, 14.7482166666762, 17.1732166666781, 19.3107166666798, 20.6565500000142, 22.0648833333487, 24.8423893333509, 25.5257226666848, 28.3673893333537, 30.3882226666886, 31.0798893333559, 36.0007226666908, 36.3590560000241, 36.7173893333575, 37.0215560000241, 39.0694893333573, 39.786156000024, 41.5819893333572, 42.9653226666904, 43.6569893333571, 44.3486560000237, 45.0361560000237, 47.1653226666902, 47.5236560000235, 47.8778226666902, 48.1861560000235, 53.3842193333565, 56.1467193333564, 58.4133860000229, 59.2955606666895]], [[3.9424616666676, 4.63829500000148, 10.1882950000059, 15.4398833333434, 16.1315500000106, 26.5465560000189, 32.517389333357, 48.5403226666901, 48.8819893333568, 49.2319893333568, 49.5425526666901, 51.6675526666899, 52.3883860000232, 58.4133860000229, 59.2955606666895], [5.3299616666687, 5.99246166666923, 11.5966283333404, 16.8232166666778, 17.5107166666784, 28.0382226666868, 33.925722666691, 49.9008860000234, 50.25505266669, 50.6133860000233, 50.98005266669, 53.0467193333565, 53.7425526666898, 60.3372210000228, 61.5419213333561]], [[4.27996166666787, 4.97162833333508, 9.50079500000535, 15.1065500000098, 18.6107166666793, 19.9732166666804, 21.4065500000148, 26.217389333352, 31.746556000023, 37.3798893333574, 38.0694893333574, 51.3342193333566, 54.1258860000231, 60.3163876666895], [5.68829500000232, 6.35079500000285, 10.9299616666732, 16.5148833333443, 21.4107166666815, 22.7357166666825, 27.7132226666865, 33.2090560000242, 38.7569893333573, 39.4569893333573, 52.7217193333565, 55.5092193333564, 63.5546066666896]]]"
+	},
+	"McDInThePentagon_short" = {
+		"tap_times": "[[[1.08356278787875, 1.49665799999994, 1.85915799999992, 2.18832466666657], [2.57595199999989, 2.9052609999999, 3.26776099999992, 3.59695899999994]], [[3.92220499999995, 4.28891299999997], [5.35974633333331, 5.69724633333331]], [[4.64724633333331, 5.00557966666664], [6.03474633333331, 6.38891299999997]]]"
+	},
+	## Place more levels here...
+}
+
 var EDIT_tap_keys = [
 	["EDIT_Bark1","EDIT_Tap1"],
 	["EDIT_Bark2","EDIT_Tap2"],
 	["EDIT_Bark3","EDIT_Tap3"],
 	## If want more inputs, place here...
 ]
-var current_level_name = "McDInThePentagon_short"
-
-## !!!FIX!!BUG!!! Name of node wont always be Test1
-@onready var input_handler = get_node("/root/Test1")
-
-## FOR "tap_times" - left bracket is for the animal, right is for the player
-var levelInfo = {
-	"McDInThePentagon" = {
-		"tap_times": "[[1,2,3,4],[5,6,7,8]]"
-	},
-	"McDInThePentagon_short" = {
-		"tap_times": "[[[1.17954066666667, 1.480377, 1.84704366666666, 2.18077933333333], [2.53128333333333, 2.84794999999999, 3.19794999999999, 3.54794999999999]], [[3.91461666666666, 4.26461666666665], [5.29794999999998, 5.66461666666665]], [[4.59794999999999, 4.96461666666665], [5.98128333333332, 6.31461666666665]]]"
-	},
-}
-
 
 func _ready() -> void:
+	## If not in edit mode, send relevent level data to main node
 	if !editMode:
 		var tap_times = levelInfo.get(current_level_name).get("tap_times")
 		var tap_times_arr = str_to_var(tap_times)
 		input_handler.organise_inputs(tap_times_arr)
+	songTimer.start_song(current_level_name)
 
 
 func _process(delta: float) -> void:
 	if editMode:
-		for i in range(0,3):
+		for i in EDIT_tap_keys.size():
 			## if Input == any Bark key or Tap key:
 			if Input.is_action_just_pressed(EDIT_tap_keys[i][0]):
-				## if array not large enough yet, add another array
-				if EDIT_tap_times.size() < (i+1):
-					EDIT_tap_times.append_array([[[],[]]])
-					print("extended")
-					
+				## if array not large enough yet, make large enough
+				while EDIT_tap_times.size() < (i+1):
+					EDIT_tap_times.append([[],[]])
+				
+				## add current time as new bark
 				EDIT_tap_times[i][0].append(input_handler.time_passed)
-				print("barked")
+				print("barked " + str(i))
 				
 			elif Input.is_action_just_pressed(EDIT_tap_keys[i][1]):
-				## if array not large enough yet, add another array
-				if EDIT_tap_times.size() < (i+1):
-					EDIT_tap_times.append_array([[[],[]]])
-					print("extended")
+				## if array not large enough yet, make large enough
+				while EDIT_tap_times.size() < (i+1):
+					EDIT_tap_times.append([[],[]])
 				
+				## add current time as new tap
 				EDIT_tap_times[i][1].append(input_handler.time_passed)
-				print("tapped")
-		
-		#if Input.is_action_just_pressed("tap"):
-			#EDIT_tap_times[1].append(input_handler.time_passed)
-			#pass
-		#elif Input.is_action_just_pressed("EDIT_Add"):
-			#EDIT_tap_times[0].append(input_handler.time_passed)
-			#pass
+				print("tapped " + str(i))
 
 
 func finish():
 	if editMode:
-		print(EDIT_tap_times)
+		print("-------\n" + str(EDIT_tap_times) + "\n-------")
+		print("Already copied Array to Clipboard. Paste in:\nlevel_editor.gd -> levelInfo{ NAME_OF_SONG: {tap_times: __HERE__}}\nif having trouble ask Chris for help")
+		DisplayServer.clipboard_set(str(EDIT_tap_times))

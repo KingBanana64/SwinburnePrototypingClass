@@ -4,12 +4,13 @@
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
 [ext_resource type="PackedScene" uid="uid://dvsacbsmhn3je" path="res://RhythmTest2/level_editor.tscn" id="2_2h7x5"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
-[ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://RhythmTest2/McDInThePentagon_short.mp3" id="4_2h7x5"]
+[ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://songs/McDInThePentagon_short.mp3" id="4_2h7x5"]
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
 
 [node name="LevelEditor" parent="." instance=ExtResource("2_2h7x5")]
+editMode = false
 
 [node name="AnimalAreas" type="Node2D" parent="."]
 
@@ -22,10 +23,11 @@ position = Vector2(574, 333)
 [node name="catHitBox3" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
 position = Vector2(919, 345)
 
-[node name="SongLength" type="Timer" parent="."]
+[node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song")]
 wait_time = 2.0
 one_shot = true
 script = ExtResource("1_i77gb")
+song = NodePath("../Song")
 
 [node name="Song" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_2h7x5")
