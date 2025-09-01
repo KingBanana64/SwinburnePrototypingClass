@@ -1,13 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=6 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
 [ext_resource type="PackedScene" uid="uid://dvsacbsmhn3je" path="res://RhythmTest2/level_editor.tscn" id="2_2h7x5"]
-[ext_resource type="Script" uid="uid://cgy3t4hynamww" path="res://RhythmTest2/hitbox_detection.gd" id="3_efdt3"]
+[ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
 [ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://RhythmTest2/McDInThePentagon_short.mp3" id="4_2h7x5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2h7x5"]
-size = Vector2(360, 628)
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
@@ -16,31 +13,14 @@ script = ExtResource("1_qit1x")
 
 [node name="AnimalAreas" type="Node2D" parent="."]
 
-[node name="catHitBox" type="Area2D" parent="AnimalAreas"]
-position = Vector2(335, 347)
-scale = Vector2(0.83464, 0.834577)
-script = ExtResource("3_efdt3")
+[node name="catHitBox1" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
+position = Vector2(248, 314)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimalAreas/catHitBox"]
-shape = SubResource("RectangleShape2D_2h7x5")
+[node name="catHitBox2" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
+position = Vector2(574, 333)
 
-[node name="catHitBox2" type="Area2D" parent="AnimalAreas"]
-position = Vector2(611, 334)
-scale = Vector2(0.58143, 0.581299)
-script = ExtResource("3_efdt3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimalAreas/catHitBox2"]
-shape = SubResource("RectangleShape2D_2h7x5")
-
-[node name="catHitBox3" type="Area2D" parent="AnimalAreas"]
-position = Vector2(935, 328)
-scale = Vector2(0.696624, 0.696519)
-script = ExtResource("3_efdt3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimalAreas/catHitBox3"]
-shape = SubResource("RectangleShape2D_2h7x5")
-
-[node name="TEST)_NODE" type="Node2D" parent="AnimalAreas"]
+[node name="catHitBox3" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
+position = Vector2(919, 345)
 
 [node name="SongLength" type="Timer" parent="."]
 wait_time = 2.0
@@ -51,7 +31,4 @@ script = ExtResource("1_i77gb")
 stream = ExtResource("4_2h7x5")
 volume_db = -14.41
 
-[connection signal="input_event" from="AnimalAreas/catHitBox" to="AnimalAreas/catHitBox" method="_on_input_event"]
-[connection signal="input_event" from="AnimalAreas/catHitBox2" to="AnimalAreas/catHitBox2" method="_on_input_event"]
-[connection signal="input_event" from="AnimalAreas/catHitBox3" to="AnimalAreas/catHitBox3" method="_on_input_event"]
 [connection signal="timeout" from="SongLength" to="." method="_on_song_length_timeout"]

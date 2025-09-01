@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://oh2dk081kaa0"]
+
+[ext_resource type="Script" uid="uid://cgy3t4hynamww" path="res://RhythmTest2/hitbox_detection.gd" id="1_orx6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2h7x5"]
+size = Vector2(360, 628)
+
+[node name="catHitBox1" type="Area2D"]
+scale = Vector2(0.83464, 0.834577)
+script = ExtResource("1_orx6n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2h7x5")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
