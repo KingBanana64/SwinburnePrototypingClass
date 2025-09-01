@@ -24,6 +24,24 @@ script = ExtResource("3_efdt3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimalAreas/catHitBox"]
 shape = SubResource("RectangleShape2D_2h7x5")
 
+[node name="catHitBox2" type="Area2D" parent="AnimalAreas"]
+position = Vector2(611, 334)
+scale = Vector2(0.58143, 0.581299)
+script = ExtResource("3_efdt3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimalAreas/catHitBox2"]
+shape = SubResource("RectangleShape2D_2h7x5")
+
+[node name="catHitBox3" type="Area2D" parent="AnimalAreas"]
+position = Vector2(935, 328)
+scale = Vector2(0.696624, 0.696519)
+script = ExtResource("3_efdt3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimalAreas/catHitBox3"]
+shape = SubResource("RectangleShape2D_2h7x5")
+
+[node name="TEST)_NODE" type="Node2D" parent="AnimalAreas"]
+
 [node name="SongLength" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -34,4 +52,6 @@ stream = ExtResource("4_2h7x5")
 volume_db = -14.41
 
 [connection signal="input_event" from="AnimalAreas/catHitBox" to="AnimalAreas/catHitBox" method="_on_input_event"]
+[connection signal="input_event" from="AnimalAreas/catHitBox2" to="AnimalAreas/catHitBox2" method="_on_input_event"]
+[connection signal="input_event" from="AnimalAreas/catHitBox3" to="AnimalAreas/catHitBox3" method="_on_input_event"]
 [connection signal="timeout" from="SongLength" to="." method="_on_song_length_timeout"]

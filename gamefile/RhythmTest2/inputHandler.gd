@@ -53,9 +53,7 @@ func _on_song_length_timeout() -> void:
 	levelEditor.finish()
 	print("SONG DONE")
 
-func animalPetCheck():
-	## Find the # child this hitbox is
-	var child = 0
+func animalPetCheck(child:int):
 	
 	## ----------------- INPUTS -----------------
 	if input_queue.size() > 0: 
