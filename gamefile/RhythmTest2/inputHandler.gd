@@ -1,14 +1,11 @@
 extends Node2D
 
-##@onready var song = $Song
 @onready var timer = $SongLength
 @onready var levelEditor = $LevelEditor
 
-##@onready var animationHitboxes = $AnimalAreas
-
 ## delay of hitting buttons on time
 var delay = 0.15
-var time_passed
+var time_passed: float
 var animal_queue = [[]]
 var input_queue = [[]]
 
@@ -34,12 +31,7 @@ func _process(_delta: float) -> void:
 					print("BARK " + str(ia))
 					animal_queue[ia].pop_front()
 
-
-## When song finishes
-func _on_song_length_timeout() -> void:
-	levelEditor.finish()
-	print("SONG DONE")
-
+## called by hitbox_detection.gd in _on_click()
 func animalPetCheck(child:int):
 	## ----------------- INPUTS - HITS -----------------
 	if input_queue.size() > 0: 
@@ -50,6 +42,7 @@ func animalPetCheck(child:int):
 			else:
 				print("BAD INPUT " + str(child))
 
+## called by level_editor.gd in _ready()
 func organise_inputs(all_arr):
 	## able to vary between 1 animal to theroetically infinite animals
 	while all_arr.size() > animal_queue.size():
@@ -62,3 +55,9 @@ func organise_inputs(all_arr):
 		animal_queue[i] = (arr[0])
 		input_queue[i] = (arr[1])
 		i += 1
+
+
+## When song finishes
+func _on_song_length_timeout() -> void:
+	levelEditor.finish()
+	print("SONG DONE")

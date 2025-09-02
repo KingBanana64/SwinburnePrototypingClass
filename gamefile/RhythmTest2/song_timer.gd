@@ -2,11 +2,8 @@ extends Timer
 
 @export var song = Node2D
 
-
-func _ready() -> void:
-	##start_song()
-	pass
-
+## Called by level_editor.gd in _ready()
+## to attempt to sync up the game nicely
 func start_song(songTitle):
 	var music = load("res://songs/"+songTitle+".mp3")
 	song.stream = music
