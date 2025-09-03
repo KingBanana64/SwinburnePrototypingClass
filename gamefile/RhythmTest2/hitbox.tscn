@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2h7x5"]
 size = Vector2(360, 628)
 
-[node name="catHitBox1" type="Area2D"]
+[node name="animalHitBox" type="Area2D"]
 scale = Vector2(0.83464, 0.834577)
 script = ExtResource("1_orx6n")
 

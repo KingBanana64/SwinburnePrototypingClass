@@ -43,6 +43,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	## LISTEN MODE
 	if editMode:
 		for i in EDIT_tap_keys.size():
 			## if Input == any Bark key or Tap key:
