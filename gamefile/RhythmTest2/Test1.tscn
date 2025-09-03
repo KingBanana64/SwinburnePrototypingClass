@@ -11,7 +11,7 @@
 script = ExtResource("1_qit1x")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(576, 407)
+position = Vector2(576, 396)
 scale = Vector2(0.491464, 0.491463)
 texture = ExtResource("6_ppsut")
 
