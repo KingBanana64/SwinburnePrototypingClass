@@ -32,15 +32,19 @@ func _process(_delta: float) -> void:
 					animal_queue[ia].pop_front()
 
 ## called by hitbox_detection.gd in _on_click()
-func animalPetCheck(child:int):
+func animalPetCheck(child:int, ClickDown: bool):
 	## ----------------- INPUTS - HITS -----------------
-	if input_queue.size() > 0: 
-		if input_queue[child].size() > 0:
-			if input_queue[child].front() < (time_passed + delay):
-				input_queue[child].pop_front()
-				print("KEY HIT " + str(child))
-			else:
-				print("BAD INPUT " + str(child))
+	if input_queue.size() <= 0:
+		return
+	if input_queue[child].size() <= 0:
+		return
+	
+	if input_queue[child].front() < (time_passed + delay):
+		# INCLUDE ClickDown to check when releasing mouse
+		input_queue[child].pop_front()
+		print("KEY HIT " + str(child))
+	else:
+		print("BAD INPUT " + str(child))
 
 ## called by level_editor.gd in _ready()
 func organise_inputs(all_arr):

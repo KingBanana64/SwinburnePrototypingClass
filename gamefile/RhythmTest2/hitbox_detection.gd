@@ -1,25 +1,26 @@
 extends Area2D
 
-@onready var level = get_node("/root/").get_child(0)
+@onready var InputHandler = get_node("/root/").get_child(0)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	
 	##If left click on area:
 	if event is InputEventMouseButton:
 		if event.button_index == 1 and event.is_pressed():		##if clicked
-			returnPosition()
+			returnPosition(true)
 		
 		## future proofing for if we want held down inputs
 		elif event.button_index == 1 and event.is_released():	##if released
+			#returnPosition(false)
 			pass
 
 
-func returnPosition():
+func returnPosition(ClickDown: bool):
 	## get child position of node
 	var i = 0
 	for child in get_parent().get_children():
 		if child.name == name:
-			level.animalPetCheck(i)
+			InputHandler.animalPetCheck(i, ClickDown) # return OnOrOff too
 		else:
 			i+=1
 
