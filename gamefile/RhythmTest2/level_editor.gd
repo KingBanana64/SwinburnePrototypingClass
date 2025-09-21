@@ -7,18 +7,34 @@ extends Node2D
 @export var editMode = false
 ## left bracket is for the animal, right is for the player
 ## all animals[ animal 1[ bark[],tap[]], animal 2[bark[], tap[]]...]
+## NOTE: tap[] now accepts either:
+##  - Float (instant tap at time)
+##  - Array [start, end] (hold note captured by press→release)
 var EDIT_tap_times = [[[],[]]]
 var array = [[]]
 
 ## !!FIX!! assign current_level_name by outside scene
 var current_level_name =  "McDInThePentagon_short" #"McDInThePentagon" #"DontMineAtNight"
 
+## ----------------------------------------------------------
+## Hold config (for editor): holds share the tap array
+## A hold is stored as [start_time, end_time]
+## Variable-length holds: key press starts, key release ends
+## TAP_HOLD_THRESHOLD: presses shorter than this are saved as taps
+## ----------------------------------------------------------
+@export var HOLD_NOTE_LEN: float = 0.8             ## kept for compatibility (unused in variable-length mode)
+@export var TAP_HOLD_THRESHOLD: float = 0.15       ## seconds; < threshold ⇒ tap, else ⇒ hold
+@export var record_hold_mode: bool = false         ## deprecated in variable-length mode (kept to avoid breaking scenes)
+
+## editor runtime: track press start times per lane for tap/hold capture
+var _press_starts := {}   ## lane_index -> start_time (float)
+
 var levelInfo = {
 	"McDInThePentagon" = {
-		"tap_times": "[[[1.03749699999918, 1.45416366666566, 1.87435699999931, 2.19974612121168, 6.73412833333649, 7.4257950000037, 12.3424616666743, 12.6966283333412, 13.0091283333415, 13.3382950000084, 15.7690500000103, 17.894050000012, 19.3065500000132, 20.6357166666809, 23.3982166666831, 24.0607166666836, 26.9340560000192, 29.0048893333542, 29.7048893333548, 34.6132226666909, 34.9757226666909, 35.2840560000242, 35.6048893333575, 37.7111560000241, 38.4069893333574, 40.1653226666906, 40.8653226666906, 41.6111560000238, 42.2736560000238, 42.9611560000238, 43.6528226666904, 45.7236560000236, 46.0861560000236, 46.4486560000236, 46.8028226666902, 52.0300526666899, 54.7633860000231, 56.8842193333563, 57.6300526666896], [2.56261133333317, 2.92094466666679, 3.25427800000039, 3.58829500000065, 8.11746166667092, 8.78412833333812, 13.7257950000087, 14.0841283333423, 14.4148833333426, 14.7482166666762, 17.1732166666781, 19.3107166666798, 20.6565500000142, 22.0648833333487, 24.8423893333509, 25.5257226666848, 28.3673893333537, 30.3882226666886, 31.0798893333559, 36.0007226666908, 36.3590560000241, 36.7173893333575, 37.0215560000241, 39.0694893333573, 39.786156000024, 41.5819893333572, 42.9653226666904, 43.6569893333571, 44.3486560000237, 45.0361560000237, 47.1653226666902, 47.5236560000235, 47.8778226666902, 48.1861560000235, 53.3842193333565, 56.1467193333564, 58.4133860000229, 59.2955606666895]], [[3.9424616666676, 4.63829500000148, 10.1882950000059, 15.4398833333434, 16.1315500000106, 26.5465560000189, 32.517389333357, 48.5403226666901, 48.8819893333568, 49.2319893333568, 49.5425526666901, 51.6675526666899, 52.3883860000232, 58.4133860000229, 59.2955606666895], [5.3299616666687, 5.99246166666923, 11.5966283333404, 16.8232166666778, 17.5107166666784, 28.0382226666868, 33.925722666691, 49.9008860000234, 50.25505266669, 50.6133860000233, 50.98005266669, 53.0467193333565, 53.7425526666898, 60.3372210000228, 61.5419213333561]], [[4.27996166666787, 4.97162833333508, 9.50079500000535, 15.1065500000098, 18.6107166666793, 19.9732166666804, 21.4065500000148, 26.217389333352, 31.746556000023, 37.3798893333574, 38.0694893333574, 51.3342193333566, 54.1258860000231, 60.3163876666895], [5.68829500000232, 6.35079500000285, 10.9299616666732, 16.5148833333443, 21.4107166666815, 22.7357166666825, 27.7132226666865, 33.2090560000242, 38.7569893333573, 39.4569893333573, 52.7217193333565, 55.5092193333564, 63.5546066666896]]]"
+		"tap_times": "[[[], [[1.39044866666666, 2.70462033333333], 3.93795366666665, 4.27156999999999, 4.60490333333332, 4.93820466666665, 5.28820466666665, 5.63820466666665, 5.97153799999998, 6.32153799999998]], [[], [3.93795366666665]]]"
 	},
 	"McDInThePentagon_short" = {
-		"tap_times": "[[[0.96249999999995, 1.43333333333326, 4.58749999999996], [2.5333333333332, 2.87083333333322, 5.99166666666662]], [[1.8124999999999, 2.14999999999988, 4.25416666666661], [3.1999999999999, 3.53749999999991, 5.68333333333329]], [[3.89166666666659], [5.32916666666662]]]"
+		"tap_times": "[[[], [[1.39044866666666, 2.70462033333333], 3.93795366666665, 4.27156999999999, 4.60490333333332, 4.93820466666665, 5.28820466666665, 5.63820466666665, 5.97153799999998, 6.32153799999998]], [[], [3.93795366666665]]]"
 	},
 	"DontMineAtNight" = {
 		"tap_times": "[[[2.2333333333349, 2.7042583333352, 3.20032033333559, 9.87986578788315, 10.3798657878831, 10.8840324545498, 15.1358956666707, 17.5067290000039, 17.9817290000039, 22.260304333337, 25.1019710000035, 25.5978043333368, 28.9179883333366, 29.8596550000032, 33.697155000003], [4.16319912121514, 4.68819912121556, 5.14236578788259, 11.8109436666709, 12.2608956666709, 12.7608956666709, 17.0108956666706, 19.4150623333372, 19.9067290000038, 24.1394710000035, 27.0346550000034, 27.5096550000033, 30.8804883333365, 31.7929883333364, 35.6013216666697]], [[6.04653245454998, 7.06736578788331, 11.3256991212164, 14.6400623333374, 18.4483956666705, 21.3227186666704, 26.0763216666701, 33.222155000003, 36.5388216666697, 37.4799090000031], [7.97986578788326, 8.91319912121654, 13.2275623333375, 16.544229000004, 20.3483956666704, 23.1978043333369, 28.0096550000033, 35.1304883333364]], [[6.57153245455001, 13.7233956666708, 14.1942290000041, 18.9192290000038, 21.7644710000037, 32.7304883333364], [8.4465324545499, 15.6275623333374, 16.0733956666707, 20.8185520000037, 23.6686376666702, 34.6638216666697]]]"
@@ -38,6 +54,8 @@ func _ready() -> void:
 	if !editMode:
 		var tap_times = levelInfo.get(current_level_name).get("tap_times")
 		var tap_times_arr = str_to_var(tap_times)
+		## NOTE: tap_times_arr now may include floats and [start,end] arrays inside each tap[] bucket.
+		## Your input_handler.organise_inputs must accept both types.
 		input_handler.organise_inputs(tap_times_arr)
 	songTimer.start_song(current_level_name)
 
@@ -45,7 +63,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	## LISTEN MODE
 	if editMode:
-		for i in EDIT_tap_keys.size():
+		for i in range(EDIT_tap_keys.size()):
 			## if Input == any Bark key or Tap key:
 			if Input.is_action_just_pressed(EDIT_tap_keys[i][0]):
 				## if array not large enough yet, make large enough
@@ -53,21 +71,39 @@ func _process(_delta: float) -> void:
 					EDIT_tap_times.append([[],[]])
 				
 				## add current time as new bark
-				EDIT_tap_times[i][0].append(input_handler.time_passed)
+				EDIT_tap_times[i][0].append(float(input_handler.time_passed))
 				print("barked " + str(i))
-				
-			elif Input.is_action_just_pressed(EDIT_tap_keys[i][1]):
+			
+			## --- Tap/Hold capture: SAME KEY for both, decided by press→release length ---
+			## on press: remember start time for this lane
+			if Input.is_action_just_pressed(EDIT_tap_keys[i][1]):
 				## if array not large enough yet, make large enough
 				while EDIT_tap_times.size() < (i+1):
 					EDIT_tap_times.append([[],[]])
+				_press_starts[i] = float(input_handler.time_passed)
+				## print("press start " + str(i))  ## optional debug
+			
+			## on release: decide tap vs hold using TAP_HOLD_THRESHOLD
+			if Input.is_action_just_released(EDIT_tap_keys[i][1]) and _press_starts.has(i):
+				var start_time: float = float(_press_starts[i])
+				var end_time: float = float(input_handler.time_passed)
+				_press_starts.erase(i)
 				
-				## add current time as new tap
-				EDIT_tap_times[i][1].append(input_handler.time_passed)
-				print("tapped " + str(i))
+				var length: float = max(0.0, end_time - start_time)
+				
+				## if length shorter than threshold, save a TAP at the press moment
+				if length < TAP_HOLD_THRESHOLD:
+					EDIT_tap_times[i][1].append(start_time)
+					print("tapped " + str(i) + " @ " + str(start_time))
+				else:
+					## else save a HOLD as [start, end]
+					EDIT_tap_times[i][1].append([start_time, end_time])
+					print("hold (" + str(i) + ") " + str(start_time) + " -> " + str(end_time))
 
 
 func finish():
 	if editMode:
 		print("-------\n" + str(EDIT_tap_times) + "\n-------")
 		print("Already copied Array to Clipboard. Paste in:\nlevel_editor.gd -> levelInfo{ NAME_OF_SONG: {tap_times: __HERE__}}\nif having trouble ask Chris for help")
+		## NOTE: The printed/copied shape allows taps (Float) and holds ([start,end]) in the same tap[] arrays.
 		DisplayServer.clipboard_set(str(EDIT_tap_times))
