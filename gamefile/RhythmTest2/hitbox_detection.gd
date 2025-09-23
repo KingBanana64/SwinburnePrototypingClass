@@ -15,20 +15,22 @@ func _ready() -> void:
 	if lane_label == "":
 		lane_label = "BARK " + str(_lane_index)
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed(key_name):
-		if _notes.size() == 0:
-			if DEBUG_ON_PRESS: print("NO NOTE IN BOX ", lane_label)
-			return
-		## overlap-only: any note inside = HIT
-		var n = _notes[0]
-		print("KEY HIT ", lane_label)
-		_unhit.erase(n)
-		_notes.erase(n)
-		if is_instance_valid(n):
-			n.queue_free()
+#func _process(_delta: float) -> void:
+	#if Input.is_action_just_pressed(key_name):
+		### BUG : activates during edit mode
+		#if _notes.size() == 0:
+			#if DEBUG_ON_PRESS: print("NO NOTE IN BOX ", lane_label)
+			#return
+		### overlap-only: any note inside = HIT
+		#var n = _notes[0]
+		#print("KEY HIT ", lane_label)
+		#_unhit.erase(n)
+		#_notes.erase(n)
+		#if is_instance_valid(n):
+			#n.queue_free()
 
 func _on_input_event(_vp: Node, event: InputEvent, _shape_idx: int) -> void:
+	## If Mouse & Left button & CLick
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		returnPosition(true)
 

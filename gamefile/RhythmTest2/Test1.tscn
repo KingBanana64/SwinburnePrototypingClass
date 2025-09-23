@@ -18,7 +18,6 @@ scale = Vector2(0.491464, 0.491463)
 texture = ExtResource("6_ppsut")
 
 [node name="LevelEditor" parent="." instance=ExtResource("2_2h7x5")]
-editMode = false
 
 [node name="AnimalAreas" type="Node2D" parent="."]
 
