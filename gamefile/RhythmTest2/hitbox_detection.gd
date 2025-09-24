@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var InputHandler = get_node("/root/").get_child(0)
+@onready var animationHandler = get_node("/root/Test1/AnimalSprites")
 
 @export var key_name: String = "EDIT_Tap1"
 @export var lane_label: String = ""          ## auto "BARK <index>" if blank

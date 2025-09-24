@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=11 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
 [ext_resource type="PackedScene" uid="uid://dvsacbsmhn3je" path="res://RhythmTest2/level_editor.tscn" id="2_2h7x5"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
 [ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://songs/McDInThePentagon_short.mp3" id="4_2h7x5"]
+[ext_resource type="Script" uid="uid://dv2b6aet0vcve" path="res://Animations/Animation/cat_animation.gd" id="5_iiy4d"]
+[ext_resource type="PackedScene" uid="uid://d26ebqi81u7ph" path="res://Animations/Animation/animalSprite.tscn" id="6_iiy4d"]
 [ext_resource type="Texture2D" uid="uid://dk36idcwx81hd" path="res://Animations/Sprites/backgroundSketch.webp" id="6_ppsut"]
 [ext_resource type="Script" uid="uid://beuxkyyqrkp8f" path="res://RhythmTest2/bob.gd" id="7_4uwfs"]
 [ext_resource type="Texture2D" uid="uid://dmddsqe0q4e2q" path="res://Animations/Sprites/cat.webp" id="7_np6b1"]
@@ -30,6 +32,18 @@ position = Vector2(567, 384)
 [node name="catHitBox3" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
 position = Vector2(914, 385)
 
+[node name="AnimalSprites" type="Node2D" parent="."]
+script = ExtResource("5_iiy4d")
+
+[node name="animalSprite1" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
+position = Vector2(213, 403)
+
+[node name="animalSprite2" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
+position = Vector2(568, 403)
+
+[node name="animalSprite3" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
+position = Vector2(919, 411)
+
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song")]
 wait_time = 2.0
 one_shot = true
@@ -43,7 +57,7 @@ volume_db = -14.41
 [node name="Node" type="Node" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node"]
-position = Vector2(561, 563)
+position = Vector2(1023, 70)
 scale = Vector2(0.289024, 0.289024)
 texture = ExtResource("7_np6b1")
 script = ExtResource("7_4uwfs")

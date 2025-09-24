@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var timer = $SongLength
 @onready var levelEditor = $LevelEditor
+@onready var animationHandler = $AnimalSprites
 
 ## delay window for judging hits (±delay)
 var delay: float = 0.15
@@ -27,7 +28,8 @@ func _process(_delta: float) -> void:
 	for ia in range(animal_queue.size()):
 		if animal_queue[ia].size() == 0:
 			continue
-		if animal_queue[ia].front() < time_passed:
+		if animal_queue[ia].front() < time_passed + delay:
+			animationHandler.AnimalAnimation(ia, "call")
 			print("BARK " + str(ia))
 			animal_queue[ia].pop_front()
 
@@ -51,6 +53,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 		if evt is Array and evt.size() == 2:
 			print("KEY HIT (HOLD) " + str(child))
 		else:
+			animationHandler.AnimalAnimation(child, "pet")
 			print("KEY HIT " + str(child))
 	else:
 		print("BAD INPUT " + str(child))
