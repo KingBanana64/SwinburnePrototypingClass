@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cs7oy53yad6i5"]
 
-[ext_resource type="Texture2D" uid="uid://bvogidikab67r" path="res://Animations/Sprites/Cats/Orange/spritesheet.png" id="1_6t8y2"]
+[ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="1_6t8y2"]
+
 
 [sub_resource type="Animation" id="Animation_he3g5"]
 resource_name = "call"

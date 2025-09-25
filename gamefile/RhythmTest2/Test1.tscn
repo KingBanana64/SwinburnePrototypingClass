@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=15 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
 [ext_resource type="PackedScene" uid="uid://dvsacbsmhn3je" path="res://RhythmTest2/level_editor.tscn" id="2_2h7x5"]
+[ext_resource type="Script" uid="uid://d3gxr1tl53a3v" path="res://RhythmTest2/score.gd" id="3_d5s84"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
 [ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://songs/McDInThePentagon_short.mp3" id="4_2h7x5"]
 [ext_resource type="Script" uid="uid://dv2b6aet0vcve" path="res://Animations/Animation/cat_animation.gd" id="5_iiy4d"]
@@ -10,8 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dk36idcwx81hd" path="res://Animations/Sprites/backgroundSketch.webp" id="6_ppsut"]
 [ext_resource type="Script" uid="uid://beuxkyyqrkp8f" path="res://RhythmTest2/bob.gd" id="7_4uwfs"]
 [ext_resource type="Texture2D" uid="uid://dmddsqe0q4e2q" path="res://Animations/Sprites/cat.webp" id="7_np6b1"]
-[ext_resource type="Texture2D" uid="uid://doga5kpgg5f7o" path="res://Animations/Sprites/Cats/Naked/spritesheet.png" id="7_nwa6u"]
-[ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/White/spritesheet.png" id="8_8bd4m"]
+[ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="8_8bd4m"]
+[ext_resource type="Texture2D" uid="uid://cc1hlfncvtpla" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png" id="8_d5s84"]
+[ext_resource type="Script" uid="uid://dag3ayng3q6hu" path="res://RhythmTest2/bpm.gd" id="10_8bd4m"]
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
@@ -20,6 +22,9 @@ script = ExtResource("1_qit1x")
 position = Vector2(576, 396)
 scale = Vector2(0.491464, 0.491463)
 texture = ExtResource("6_ppsut")
+
+[node name="Score" type="Node2D" parent="."]
+script = ExtResource("3_d5s84")
 
 [node name="LevelEditor" parent="." instance=ExtResource("2_2h7x5")]
 
@@ -42,7 +47,7 @@ position = Vector2(213, 403)
 
 [node name="animalSprite2" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(568, 403)
-spritesheet = ExtResource("7_nwa6u")
+spritesheet = ExtResource("8_d5s84")
 
 [node name="animalSprite3" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(919, 411)
@@ -53,6 +58,10 @@ wait_time = 2.0
 one_shot = true
 script = ExtResource("1_i77gb")
 song = NodePath("../Song")
+
+[node name="bpm" type="Timer" parent="."]
+wait_time = 3.466
+script = ExtResource("10_8bd4m")
 
 [node name="Song" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_2h7x5")
@@ -68,3 +77,4 @@ texture = ExtResource("7_np6b1")
 script = ExtResource("7_4uwfs")
 
 [connection signal="timeout" from="SongLength" to="." method="_on_song_length_timeout"]
+[connection signal="timeout" from="bpm" to="AnimalSprites" method="_on_bpm_timeout"]

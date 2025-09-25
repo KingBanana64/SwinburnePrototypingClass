@@ -3,10 +3,12 @@ extends Node2D
 @onready var timer = $SongLength
 @onready var levelEditor = $LevelEditor
 @onready var animationHandler = $AnimalSprites
+@onready var scoreHandler = $Score
 
 ## delay window for judging hits (±delay)
 var delay: float = 0.15
 var time_passed: float
+var bpm: float
 var animal_queue = [[]]
 var input_queue = [[]]
 
@@ -23,15 +25,17 @@ func _process(_delta: float) -> void:
 		if evt_time < (time_passed - delay):
 			input_queue[ii].pop_front()
 			print("KEY PASSED " + str(ii))
+			animationHandler.AnimalAnimation(ii, "fail")
+			scoreHandler.update("miss")
 
 	## ----------------- ANIMALS - CALL ----------------
 	for ia in range(animal_queue.size()):
 		if animal_queue[ia].size() == 0:
 			continue
 		if animal_queue[ia].front() < time_passed + delay:
-			animationHandler.AnimalAnimation(ia, "call")
 			print("BARK " + str(ia))
 			animal_queue[ia].pop_front()
+			animationHandler.AnimalAnimation(ia, "call")
 
 ## called by hitbox_detection.gd
 func animalPetCheck(child:int, ClickDown: bool) -> void:
@@ -52,11 +56,16 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 		## optional: show tap vs hold
 		if evt is Array and evt.size() == 2:
 			print("KEY HIT (HOLD) " + str(child))
+			## animationHandler.AnimalAnimation(child, "hold")
+			scoreHandler.update("pet")
 		else:
-			animationHandler.AnimalAnimation(child, "pet")
 			print("KEY HIT " + str(child))
+			animationHandler.AnimalAnimation(child, "pet")
+			scoreHandler.update("pet")
 	else:
 		print("BAD INPUT " + str(child))
+		animationHandler.AnimalAnimation(child, "fail")
+		scoreHandler.update("bad")
 
 ## helper: get the 'hit time' of an event (tap=float, hold=[start,end])
 func _event_time(evt) -> float:
@@ -79,7 +88,10 @@ func organise_inputs(all_arr: Array) -> void:
 		animal_queue[i] = arr[0]
 		input_queue[i]  = arr[1]
 
+func score():
+	scoreHandler.totalScore()
+
 ## When song finishes
 func _on_song_length_timeout() -> void:
+	
 	levelEditor.finish()
-	print("SONG DONE")
