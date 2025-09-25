@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://d26ebqi81u7ph"]
+[gd_scene load_steps=10 format=3 uid="uid://d26ebqi81u7ph"]
 
 [ext_resource type="Script" uid="uid://rqiru3x4dp4p" path="res://Animations/Animation/animal_sprite.gd" id="1_ixi52"]
-[ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="1_yd7sc"]
 [ext_resource type="Texture2D" uid="uid://dutcnbcq1de5x" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_orange.png" id="2_s8ndf"]
 [ext_resource type="AudioStream" uid="uid://yctn4xqvrhh4" path="res://songs/sfx/catMeow.wav" id="3_jdvnm"]
 
@@ -231,6 +230,6 @@ stream = ExtResource("3_jdvnm")
 
 [node name="Animal" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_yd7sc")
+texture = ExtResource("2_s8ndf")
 hframes = 3
 vframes = 2
