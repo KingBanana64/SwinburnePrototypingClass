@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpf8pt5vunug6"
-path="res://.godot/imported/CatNakedSad.webp-bb2bc50430e8e09121cc03a0316e0ab4.ctex"
+uid="uid://bcnde3g1cw6cu"
+path="res://.godot/imported/CatBlackBlink.webp-a75d7eef0db5cc26e1b83fe80bb3a1b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Animations/Sprites/Cats/Naked/CatNakedSad.webp"
-dest_files=["res://.godot/imported/CatNakedSad.webp-bb2bc50430e8e09121cc03a0316e0ab4.ctex"]
+source_file="res://Animations/Sprites/Cats/Black/individuals/CatBlackBlink.webp"
+dest_files=["res://.godot/imported/CatBlackBlink.webp-a75d7eef0db5cc26e1b83fe80bb3a1b1.ctex"]
 
 [params]
 

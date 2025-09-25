@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w3uhr1c86vsq"
-path="res://.godot/imported/CatNakedHappy.webp-6ddda68df69e0ba0b857eb6d449dec9f.ctex"
+uid="uid://b60l386fvhvqf"
+path="res://.godot/imported/CatNakedNeutral.webp-5a5a6d3acf8dd9084e823e6568d71949.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Animations/Sprites/Cats/Naked/CatNakedHappy.webp"
-dest_files=["res://.godot/imported/CatNakedHappy.webp-6ddda68df69e0ba0b857eb6d449dec9f.ctex"]
+source_file="res://Animations/Sprites/Cats/Naked/individual/CatNakedNeutral.webp"
+dest_files=["res://.godot/imported/CatNakedNeutral.webp-5a5a6d3acf8dd9084e823e6568d71949.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://v114urpkl7lf"
-path="res://.godot/imported/CatWhiteMeow.webp-fd3f344405a3171ef70c791bb026fabf.ctex"
+path="res://.godot/imported/CatWhiteMeow.webp-077aa2d8ca2b6e073ad35d2c052b3da9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Animations/Sprites/Cats/White/CatWhiteMeow.webp"
-dest_files=["res://.godot/imported/CatWhiteMeow.webp-fd3f344405a3171ef70c791bb026fabf.ctex"]
+source_file="res://Animations/Sprites/Cats/White/indivudual/CatWhiteMeow.webp"
+dest_files=["res://.godot/imported/CatWhiteMeow.webp-077aa2d8ca2b6e073ad35d2c052b3da9.ctex"]
 
 [params]
 

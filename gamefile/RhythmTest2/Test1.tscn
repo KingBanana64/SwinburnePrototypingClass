@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=13 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dk36idcwx81hd" path="res://Animations/Sprites/backgroundSketch.webp" id="6_ppsut"]
 [ext_resource type="Script" uid="uid://beuxkyyqrkp8f" path="res://RhythmTest2/bob.gd" id="7_4uwfs"]
 [ext_resource type="Texture2D" uid="uid://dmddsqe0q4e2q" path="res://Animations/Sprites/cat.webp" id="7_np6b1"]
+[ext_resource type="Texture2D" uid="uid://doga5kpgg5f7o" path="res://Animations/Sprites/Cats/Naked/spritesheet.png" id="7_nwa6u"]
+[ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/White/spritesheet.png" id="8_8bd4m"]
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
@@ -40,9 +42,11 @@ position = Vector2(213, 403)
 
 [node name="animalSprite2" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(568, 403)
+spritesheet = ExtResource("7_nwa6u")
 
 [node name="animalSprite3" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(919, 411)
+spritesheet = ExtResource("8_8bd4m")
 
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song")]
 wait_time = 2.0
@@ -57,7 +61,8 @@ volume_db = -14.41
 [node name="Node" type="Node" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node"]
-position = Vector2(1023, 70)
+visible = false
+position = Vector2(205, 411)
 scale = Vector2(0.289024, 0.289024)
 texture = ExtResource("7_np6b1")
 script = ExtResource("7_4uwfs")

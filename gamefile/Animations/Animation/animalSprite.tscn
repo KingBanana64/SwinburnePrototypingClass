@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d26ebqi81u7ph"]
+[gd_scene load_steps=7 format=3 uid="uid://d26ebqi81u7ph"]
 
+[ext_resource type="Script" uid="uid://rqiru3x4dp4p" path="res://Animations/Animation/animal_sprite.gd" id="1_ixi52"]
 [ext_resource type="Texture2D" uid="uid://bvogidikab67r" path="res://Animations/Sprites/Cats/Orange/spritesheet.png" id="1_yd7sc"]
 
 [sub_resource type="Animation" id="Animation_w4v1s"]
@@ -131,6 +132,8 @@ _data = {
 }
 
 [node name="animalSprite" type="Node2D"]
+script = ExtResource("1_ixi52")
+spritesheet = ExtResource("1_yd7sc")
 
 [node name="animalPlayer" type="AnimationPlayer" parent="."]
 libraries = {

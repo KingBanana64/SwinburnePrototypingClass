@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnrjxv1o7kyr2"
-path="res://.godot/imported/CatBlackMeow.webp-8eaaebbe0b6c5202ac84237f3666d03a.ctex"
+uid="uid://bqpqa3ic4vaa2"
+path="res://.godot/imported/CatWhiteBlink.webp-2faf9cccba0b3ddf81d4039bf8b1fcea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Animations/Sprites/Cats/Black/CatBlackMeow.webp"
-dest_files=["res://.godot/imported/CatBlackMeow.webp-8eaaebbe0b6c5202ac84237f3666d03a.ctex"]
+source_file="res://Animations/Sprites/Cats/White/indivudual/CatWhiteBlink.webp"
+dest_files=["res://.godot/imported/CatWhiteBlink.webp-2faf9cccba0b3ddf81d4039bf8b1fcea.ctex"]
 
 [params]
 

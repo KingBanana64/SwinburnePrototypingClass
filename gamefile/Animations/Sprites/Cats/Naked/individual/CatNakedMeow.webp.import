@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://twc3t8uumv2y"
-path="res://.godot/imported/CatWhiteNeutral.webp-9b4573b5ec77239e35136803b953aca7.ctex"
+uid="uid://ccel5jkrmyh5w"
+path="res://.godot/imported/CatNakedMeow.webp-625d9701c7be6ae78dc086407c076743.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Animations/Sprites/Cats/White/CatWhiteNeutral.webp"
-dest_files=["res://.godot/imported/CatWhiteNeutral.webp-9b4573b5ec77239e35136803b953aca7.ctex"]
+source_file="res://Animations/Sprites/Cats/Naked/individual/CatNakedMeow.webp"
+dest_files=["res://.godot/imported/CatNakedMeow.webp-625d9701c7be6ae78dc086407c076743.ctex"]
 
 [params]
 
