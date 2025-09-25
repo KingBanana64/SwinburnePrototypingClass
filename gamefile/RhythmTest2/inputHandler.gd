@@ -88,10 +88,10 @@ func organise_inputs(all_arr: Array) -> void:
 		animal_queue[i] = arr[0]
 		input_queue[i]  = arr[1]
 
-func score():
-	scoreHandler.totalScore()
 
 ## When song finishes
 func _on_song_length_timeout() -> void:
-	
 	levelEditor.finish()
+
+func score():
+	scoreHandler.totalScore()
