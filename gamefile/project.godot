@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GameFile"
-run/main_scene="uid://cvv723es1bjeh"
+run/main_scene="uid://do7liwnevxpfk"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://Animations/Sprites/icon.svg"
 
