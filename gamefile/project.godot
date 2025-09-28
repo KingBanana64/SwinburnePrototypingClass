@@ -15,6 +15,10 @@ run/main_scene="uid://cvv723es1bjeh"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://Animations/Sprites/icon.svg"
 
+[autoload]
+
+Signals="*res://signals.tscn"
+
 [input]
 
 tap={

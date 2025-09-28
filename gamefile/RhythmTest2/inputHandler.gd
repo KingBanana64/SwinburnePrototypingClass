@@ -12,6 +12,11 @@ var bpm: float
 var animal_queue = [[]]
 var input_queue = [[]]
 
+func _ready() -> void:
+	print(Signals.CurSong )
+
+
+
 func _process(_delta: float) -> void:
 	time_passed = timer.wait_time - timer.time_left
 

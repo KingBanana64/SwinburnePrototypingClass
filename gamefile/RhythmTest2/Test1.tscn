@@ -43,14 +43,14 @@ position = Vector2(914, 385)
 script = ExtResource("5_iiy4d")
 
 [node name="animalSprite1" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
-position = Vector2(213, 403)
+position = Vector2(209, 402)
 
 [node name="animalSprite2" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
-position = Vector2(568, 403)
+position = Vector2(565, 402)
 spritesheet = ExtResource("8_d5s84")
 
 [node name="animalSprite3" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
-position = Vector2(919, 411)
+position = Vector2(922, 402)
 spritesheet = ExtResource("8_8bd4m")
 
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song")]
