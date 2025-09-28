@@ -6,15 +6,11 @@ extends Node2D
 @onready var scoreHandler = $Score
 
 ## delay window for judging hits (±delay)
-var delay: float = 0.15
+var delay: float = 0.2
 var time_passed: float
 var bpm: float
 var animal_queue = [[]]
 var input_queue = [[]]
-
-func _ready() -> void:
-	print(Signals.CurSong )
-
 
 
 func _process(_delta: float) -> void:

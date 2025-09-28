@@ -1,8 +1,7 @@
 extends Node2D
 
-@onready var input_handler = get_node("/root/").get_child(0)
+@onready var input_handler = get_node("/root/Test1/")
 @onready var songTimer = get_node("/root/Test1/SongLength/")
-@onready var bpmTimer = get_node("/root/Test1/bpm/")
 
 ## Level Making, manually change to write Levels
 @export var editMode = false
@@ -16,7 +15,7 @@ var EDIT_bpm = []
 var array = [[]]
 
 ## !!FIX!! assign current_level_name by outside scene
-var current_level_name = "song_01" #"McDInThePentagon_short" #"McDInThePentagon" #"DontMineAtNight"
+var current_level_name: String
 
 ## ----------------------------------------------------------
 ## Hold config (for editor): holds share the tap array
@@ -32,18 +31,12 @@ var current_level_name = "song_01" #"McDInThePentagon_short" #"McDInThePentagon"
 var _press_starts := {}   ## lane_index -> start_time (float)
 
 var levelInfo = {
-	"McDInThePentagon" = {
-		"tap_times": "[[[], [[1.39044866666666, 2.70462033333333], 3.93795366666665, 4.27156999999999, 4.60490333333332, 4.93820466666665, 5.28820466666665, 5.63820466666665, 5.97153799999998, 6.32153799999998]], [[], [3.93795366666665]]]"
-	},
 	"McDInThePentagon_short" = {
 		"tap_times": "[[[1.15839166666666, 2.24172499999999, 3.99172499999999, 4.75839166666665], [2.62505833333333, 3.62505833333332, [5.40970666666665, 5.74303999999998], 6.09303999999998]], [[1.50839166666666], [2.94172499999999]], [[1.90839166666666], [3.25839166666666]]]",
 		"bpm": 176
 	},
-	"DontMineAtNight" = {
-		"tap_times": "[[[2.2333333333349, 2.7042583333352, 3.20032033333559, 9.87986578788315, 10.3798657878831, 10.8840324545498, 15.1358956666707, 17.5067290000039, 17.9817290000039, 22.260304333337, 25.1019710000035, 25.5978043333368, 28.9179883333366, 29.8596550000032, 33.697155000003], [4.16319912121514, 4.68819912121556, 5.14236578788259, 11.8109436666709, 12.2608956666709, 12.7608956666709, 17.0108956666706, 19.4150623333372, 19.9067290000038, 24.1394710000035, 27.0346550000034, 27.5096550000033, 30.8804883333365, 31.7929883333364, 35.6013216666697]], [[6.04653245454998, 7.06736578788331, 11.3256991212164, 14.6400623333374, 18.4483956666705, 21.3227186666704, 26.0763216666701, 33.222155000003, 36.5388216666697, 37.4799090000031], [7.97986578788326, 8.91319912121654, 13.2275623333375, 16.544229000004, 20.3483956666704, 23.1978043333369, 28.0096550000033, 35.1304883333364]], [[6.57153245455001, 13.7233956666708, 14.1942290000041, 18.9192290000038, 21.7644710000037, 32.7304883333364], [8.4465324545499, 15.6275623333374, 16.0733956666707, 20.8185520000037, 23.6686376666702, 34.6638216666697]]]",
-	},
 	"song_01" = {
-		"tap_times": "[[[3.91300833333588, 10.3399020000046, 16.7150406666709, 23.0577766666705, 29.4661100000035, 30.2726040000034, 36.4857950000032], [5.46382690909468, 11.9025406666711, 18.2900406666708, 24.7452766666704, 31.0934373333367, 31.86844566667, 38.1399616666699]], [[4.66344812121526, 17.1275406666708, 29.8744433333368], [6.28979000000439, 18.6411100000041, 31.48094566667]], [[11.1067073333379, 17.4817073333375, 23.8577766666705, 35.8774616666698, 36.9607950000032], [[12.6317073333378, 13.0692073333377], 19.0494433333374, 25.4327766666704, 37.5066283333365, 38.5524616666699]]]",
+		"tap_times": "[[[3.79392700000278, 17.0513430000041, 23.1049740000038], [5.50696066667081, 18.6885953333374, 24.6841406666703]], [[4.72309366667019, 16.6430096666708, 30.3508073333367, 35.932597000003], [6.27362733333808, 18.3092156666707, 31.8992636666699, 37.5075970000031]], [[10.3143080000045, 29.5133073333367, 37.1117636666697], [[11.9185496666711, 12.7227163333377], 31.1202170000033, 38.7242636666698]]]",
 		"bpm": 75
 	}
 	## Place more levels here...
@@ -57,16 +50,17 @@ var EDIT_tap_keys = [
 ]
 
 func _ready() -> void:
+	current_level_name = globalVariables.SelectedSong
 	## If not in edit mode, send relevent level data to main node
+	var bpm: float
 	if !editMode:
 		var tap_times = levelInfo.get(current_level_name).get("tap_times")
 		var tap_times_arr = str_to_var(tap_times)
 		## NOTE: tap_times_arr now may include floats and [start,end] arrays inside each tap[] bucket.
 		## Your input_handler.organise_inputs must accept both types.
-		var bpm = levelInfo.get(current_level_name).get("bpm")
+		bpm = levelInfo.get(current_level_name).get("bpm")
 		input_handler.organise_inputs(tap_times_arr)
-		bpmTimer.bpmStart(bpm)
-	songTimer.start_song(current_level_name)
+	songTimer.start_song(current_level_name, bpm)
 
 
 func _process(_delta: float) -> void:
@@ -123,4 +117,4 @@ func finish():
 		DisplayServer.clipboard_set(str(EDIT_tap_times))
 	else: 
 		input_handler.score()
-	bpmTimer.stop()
+	songTimer.stopSong()

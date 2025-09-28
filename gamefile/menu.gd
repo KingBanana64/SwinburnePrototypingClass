@@ -18,6 +18,6 @@ func _on_start_pressed() -> void:
 		print("Select a song")
 		return
 	
-	Signals.CurSong = SelectedSong
+	globalVariables.SelectedSong = SelectedSong
 	
 	get_tree().change_scene_to_file("res://RhythmTest2/Test1.tscn")

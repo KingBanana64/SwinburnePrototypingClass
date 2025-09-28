@@ -17,7 +17,7 @@ config/icon="res://Animations/Sprites/icon.svg"
 
 [autoload]
 
-Signals="*res://signals.tscn"
+globalVariables="*res://global_variables.gd"
 
 [input]
 

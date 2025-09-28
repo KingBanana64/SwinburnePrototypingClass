@@ -21,13 +21,13 @@ text = "test"
 
 [node name="SongList" type="ItemList" parent="Control"]
 layout_mode = 0
-offset_left = 273.0
-offset_top = 204.0
-offset_right = 482.0
-offset_bottom = 465.0
+offset_left = 266.0
+offset_top = 195.0
+offset_right = 511.0
+offset_bottom = 456.0
 item_count = 2
-item_0/text = "Song1"
-item_1/text = "Song2"
+item_0/text = "song_01"
+item_1/text = "McDInThePentagon_short"
 
 [connection signal="pressed" from="Control/Start" to="." method="_on_start_pressed"]
 [connection signal="item_clicked" from="Control/SongList" to="." method="_on_song_list_item_clicked"]
