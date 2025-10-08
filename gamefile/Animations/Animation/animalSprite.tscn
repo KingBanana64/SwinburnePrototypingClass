@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d26ebqi81u7ph"]
+[gd_scene load_steps=13 format=3 uid="uid://d26ebqi81u7ph"]
 
 [ext_resource type="Script" uid="uid://rqiru3x4dp4p" path="res://Animations/Animation/animal_sprite.gd" id="1_ixi52"]
 [ext_resource type="Texture2D" uid="uid://dutcnbcq1de5x" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_orange.png" id="2_s8ndf"]
@@ -49,7 +49,7 @@ length = 0.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("Animal:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -207,13 +207,137 @@ tracks/2/keys = {
 "values": [Vector2(0, -31.5), Vector2(0, -32.5), Vector2(0, -12), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_88rtn"]
+resource_name = "call_start"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animal:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.310366), Vector2(0.3, 0.295122), Vector2(0.3, 0.310366), Vector2(0.3, 0.295122), Vector2(0.3, 0.310366), Vector2(0.3, 0.295122), Vector2(0.3, 0.310366), Vector2(0.3, 0.295122), Vector2(0.3, 0.310366), Vector2(0.3, 0.295122), Vector2(0.3, 0.310366)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animal:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -8.49986), Vector2(0, 4.00015), Vector2(0, -8.49986), Vector2(0, 4.00015), Vector2(0, -8.49986), Vector2(0, 4.00015), Vector2(0, -8.49986), Vector2(0, 4.00015), Vector2(0, -8.49986), Vector2(0, 4.00015), Vector2(0, -8.49986)]
+}
+
+[sub_resource type="Animation" id="Animation_65pmg"]
+resource_name = "call_end"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animal:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 11.5001), Vector2(0, 0.000144005)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animal:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.285976), Vector2(0.3, 0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_rgvr6"]
+resource_name = "pet_start"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animal:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -9.99999), Vector2(0, 10), Vector2(0, -9.99999), Vector2(0, 10), Vector2(0, -9.99999), Vector2(0, 10), Vector2(0, -9.99999), Vector2(0, 10), Vector2(0, -9.99999), Vector2(0, 10), Vector2(0, -9.99999)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Animal:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.312195), Vector2(0.3, 0.287805), Vector2(0.3, 0.312195), Vector2(0.3, 0.287805), Vector2(0.3, 0.312195), Vector2(0.3, 0.287805), Vector2(0.3, 0.312195), Vector2(0.3, 0.287805), Vector2(0.3, 0.312195), Vector2(0.3, 0.287805), Vector2(0.3, 0.312195)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1t52"]
 _data = {
 &"RESET": SubResource("Animation_w4v1s"),
 &"bop": SubResource("Animation_s8ndf"),
 &"call": SubResource("Animation_he3g5"),
+&"call_end": SubResource("Animation_65pmg"),
+&"call_start": SubResource("Animation_88rtn"),
 &"fail": SubResource("Animation_jdvnm"),
-&"pet": SubResource("Animation_yd7sc")
+&"pet": SubResource("Animation_yd7sc"),
+&"pet_start": SubResource("Animation_rgvr6")
 }
 
 [node name="animalSprite" type="Node2D"]

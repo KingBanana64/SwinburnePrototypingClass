@@ -9,7 +9,11 @@ func _ready() -> void:
 	
 	sfx = {
 	"call": load("res://songs/sfx/catMeow.wav"),
+	"call_start" : load("res://songs/sfx/longMeowStartTest.wav"), ## long notes start | PLACEHOLDER
+	"call_end" : load("res://songs/sfx/longMeowEndTest.wav"), ## long notes End       | PLACEHOLDER
 	"pet" : load("res://songs/sfx/dogBark.wav"),
+	"pet_start" : load("res://songs/sfx/longMeowStartTest.wav"), ## long notes start
+	"pet_end" : load("res://songs/sfx/longMeowEndTest.wav"), ## long notes End
 	"fail": load("res://songs/sfx/birdChirp.wav")
 	}
 

@@ -51,6 +51,7 @@ func _process(_delta: float) -> void:
 			if evt is Array and evt.size() == 2:
 				var miss_ms := int(round((time_passed - (evt_time + delay)) * 1000.0))
 				print("hold missed (start) — missed by %d ms" % miss_ms)
+				
 			else:
 				var miss_ms2 := int(round((time_passed - (evt_time + delay)) * 1000.0))
 				print("tap passed — missed by %d ms" % miss_ms2)
@@ -129,6 +130,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			need_release[child] = true
 			hold_end[child] = end_t
 			scoreHandler.update("pet")
+			animationHandler.AnimalAnimation(child, "pet_start")
 		else:
 			print("HOLD START — target %.3f, actual %.3f, Δ %d ms (MISS)" % [start_t, time_passed, dt_ms])
 			animationHandler.AnimalAnimation(child, "fail")
