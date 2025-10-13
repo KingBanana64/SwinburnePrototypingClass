@@ -93,7 +93,6 @@ func _process(_delta: float) -> void:
 			swap(swap_queue[isw][0].back())
 			swap_queue[isw].pop_front()
 	
-	
 	last_time_passed = time_passed
 
 # Global mouse capture so release is never missed (even off the hitbox / UI)

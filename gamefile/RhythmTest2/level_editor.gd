@@ -125,7 +125,7 @@ func _process(_delta: float) -> void:
 
 func finish():
 	if editMode:
-		var paste : String
+		var paste : String = ''
 		
 		if (!EDIT_tap_times[0][0].is_empty()):
 			print("------- Tap times added -------")
