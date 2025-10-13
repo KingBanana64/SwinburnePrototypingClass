@@ -90,6 +90,7 @@ func _process(_delta: float) -> void:
 		if swap_queue[isw].is_empty(): continue
 		## If swap time begins, begin swap
 		if swap_queue[isw][0].front() < time_passed:
+			print('SWAP CAT ' + str(isw))
 			swap(swap_queue[isw][0].back())
 			swap_queue[isw].pop_front()
 	
@@ -184,6 +185,12 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 
 ## Chris' code, for swap function
 func swap(animalColour: int, ):
+	## Create leaving cat scene
+	## Instantiate leaving cat at "AnimalLeavingSpites" with current colours
+	
+	## Change current colours to animalColour
+	## Begin arriving animation
+	
 	pass
 
 # helper: get the 'hit time' of an event (tap=float, hold=[start,end])

@@ -52,7 +52,7 @@ spritesheet = ExtResource("8_d5s84")
 position = Vector2(922, 402)
 spritesheet = ExtResource("8_8bd4m")
 
-[node name="TEMPAnimalLeavingSprites" type="Node2D" parent="."]
+[node name="AnimalLeavingSprites" type="Node2D" parent="."]
 
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song", "bpmTimer")]
 wait_time = 2.0
