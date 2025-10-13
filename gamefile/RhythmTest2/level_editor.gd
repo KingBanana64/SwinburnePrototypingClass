@@ -32,12 +32,13 @@ var _press_starts := {}   ## lane_index -> start_time (float)
 
 var levelInfo = {
 	"McDInThePentagon_short" = {
-		"tap_times": [[[1.06329433333328], [2.53093066666656]], [[1.80947299999992], [3.22277599999992]], [[3.96063766666663], [[5.39727866666665, 5.97644533333332]]]],
-"swap_times": [[3.6005335815295], [3.98803358152951], [6.2]],
+		"tap_times": [[[1.03293033333328, 1.46273312121205], [2.5172713333332, 2.87571833333322]], [[1.80059099999991, 2.15893799999989], [3.2340969999999, 3.58826366666659]], [[3.89668899999994], [[5.36335566666663, 6.02585566666663]]]],
+		"swap_times": [[[3.54744278787872, 0], [6.3057761212121, 0]], [[3.56410945454539, 0], [6.3057761212121, 0]], [[3.56410945454539, 0], [6.3057761212121, 0]]],
 		"bpm": 176
 	},
 	"song_01" = {
 		"tap_times": [[[3.79392700000278, 17.0513430000041, 23.1049740000038], [5.50696066667081, 18.6885953333374, 24.6841406666703]], [[4.72309366667019, 16.6430096666708, 30.3508073333367, 35.932597000003], [6.27362733333808, 18.3092156666707, 31.8992636666699, 37.5075970000031]], [[10.3143080000045, 29.5133073333367, 37.1117636666697], [[11.9185496666711, 12.7227163333377], 31.1202170000033, 38.7242636666698]]],
+		"swap_times": [],
 		"bpm": 75
 	}
 	## Place more levels here...
@@ -62,11 +63,11 @@ func _ready() -> void:
 	var bpm: float
 	if !editMode:
 		var tap_times = levelInfo.get(current_level_name).get("tap_times")
-		var tap_times_arr = tap_times
+		var swap_times = levelInfo.get(current_level_name).get("swap_times")
 		## NOTE: tap_times_arr now may include floats and [start,end] arrays inside each tap[] bucket.
 		## Your input_handler.organise_inputs must accept both types.
 		bpm = levelInfo.get(current_level_name).get("bpm")
-		input_handler.organise_inputs(tap_times_arr)
+		input_handler.organise_inputs(tap_times,swap_times)
 	songTimer.start_song(current_level_name, bpm)
 
 
@@ -117,7 +118,7 @@ func _process(_delta: float) -> void:
 					EDIT_swap_times.append([])
 				
 				## add current time as new swap
-				EDIT_swap_times[i].append(float(input_handler.time_passed))
+				EDIT_swap_times[i].append([float(input_handler.time_passed),0])
 				print("swap " + str(i) + " at " + str(input_handler.time_passed))
 
 

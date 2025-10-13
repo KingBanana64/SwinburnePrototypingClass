@@ -18,6 +18,7 @@ var bpm: float
 # per-lane queues
 var animal_queue = [[]]
 var input_queue  = [[]]
+var swap_queue = [[]]
 
 # hold state (per lane)
 var need_release := []     # true while a hold is active (waiting for release)
@@ -181,15 +182,21 @@ func _event_time(evt) -> float:
 	return float(evt)
 
 # called by level_editor.gd in _ready()
-func organise_inputs(all_arr: Array) -> void:
-	# grow arrays to number of lanes
+func organise_inputs(all_arr: Array, swap_arr: Array) -> void:
+	## grow arrays to number of lanes
 	while all_arr.size() > animal_queue.size():
 		animal_queue.append([])
 		input_queue.append([])
+		## ----------------------
 		need_release.append(false)
 		hold_end.append(-1.0)
-
-	# assign per lane
+	## i think ^this^ is making the start times too early
+	
+	## same for swap array
+	while swap_arr.size() > swap_queue.size():
+		swap_queue.append([])
+	
+	## assign per lane
 	for i in range(all_arr.size()):
 		var arr = all_arr[i]
 		animal_queue[i] = arr[0]
@@ -200,6 +207,10 @@ func organise_inputs(all_arr: Array) -> void:
 		else:
 			need_release[i] = false
 			hold_end[i] = -1.0
+	
+	for swap in swap_arr:
+		swap_queue.append(swap)
+		pass
 
 func _on_song_length_timeout() -> void:
 	levelEditor.finish()
