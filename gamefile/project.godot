@@ -19,6 +19,10 @@ config/icon="res://Animations/Sprites/icon.svg"
 
 globalVariables="*res://global_variables.gd"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 tap={
@@ -81,3 +85,7 @@ EDIT_Swap3={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"location":0,"echo":false,"script":null)
 ]
 }
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

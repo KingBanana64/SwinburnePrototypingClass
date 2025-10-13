@@ -80,18 +80,18 @@ func _process(_delta: float) -> void:
 	# ----------------- ANIMALS - CALL ----------------
 	for ia in animal_queue.size():
 		if animal_queue[ia].size() == 0: continue
-		if animal_queue[ia].front() < time_passed + delay:
+		if animal_queue[ia].front() < time_passed + (delay/6):
 			animal_queue[ia].pop_front()
 			animationHandler.AnimalAnimation(ia, "call")
 	
 	## ----------------- ANIMALS - SWAP ----------------
+	
 	for isw in swap_queue.size():
 		if swap_queue[isw].is_empty(): continue
+		## If swap time begins, begin swap
 		if swap_queue[isw][0].front() < time_passed:
-			print("!! SWAP !! " + str(isw))
-			print(swap_queue)
+			swap(swap_queue[isw][0].back())
 			swap_queue[isw].pop_front()
-			print(swap_queue)
 	
 	
 	last_time_passed = time_passed
@@ -182,6 +182,10 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			animationHandler.AnimalAnimation(child, "fail")
 			scoreHandler.update("bad")
 		return
+
+## Chris' code, for swap function
+func swap(animalColour: int, ):
+	pass
 
 # helper: get the 'hit time' of an event (tap=float, hold=[start,end])
 func _event_time(evt) -> float:
