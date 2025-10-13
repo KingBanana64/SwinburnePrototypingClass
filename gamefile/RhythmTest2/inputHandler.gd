@@ -78,12 +78,22 @@ func _process(_delta: float) -> void:
 				print("RELEASE NOW (hold @ %.3f)" % hold_end[lane])
 
 	# ----------------- ANIMALS - CALL ----------------
-	for ia in range(animal_queue.size()):
+	for ia in animal_queue.size():
 		if animal_queue[ia].size() == 0: continue
 		if animal_queue[ia].front() < time_passed + delay:
 			animal_queue[ia].pop_front()
 			animationHandler.AnimalAnimation(ia, "call")
-
+	
+	## ----------------- ANIMALS - SWAP ----------------
+	for isw in swap_queue.size():
+		if swap_queue[isw].is_empty(): continue
+		if swap_queue[isw][0].front() < time_passed:
+			print("!! SWAP !! " + str(isw))
+			print(swap_queue)
+			swap_queue[isw].pop_front()
+			print(swap_queue)
+	
+	
 	last_time_passed = time_passed
 
 # Global mouse capture so release is never missed (even off the hitbox / UI)
@@ -208,8 +218,8 @@ func organise_inputs(all_arr: Array, swap_arr: Array) -> void:
 			need_release[i] = false
 			hold_end[i] = -1.0
 	
-	for swap in swap_arr:
-		swap_queue.append(swap)
+	for i in swap_arr.size():
+		swap_queue[i] = swap_arr[i]
 		pass
 
 func _on_song_length_timeout() -> void:
