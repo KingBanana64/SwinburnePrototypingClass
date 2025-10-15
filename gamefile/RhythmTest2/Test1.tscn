@@ -27,6 +27,8 @@ script = ExtResource("3_d5s84")
 
 [node name="LevelEditor" parent="." instance=ExtResource("2_2h7x5")]
 
+[node name="AnimalLeavingSprites" type="Node2D" parent="."]
+
 [node name="AnimalAreas" type="Node2D" parent="."]
 
 [node name="catHitBox1" parent="AnimalAreas" instance=ExtResource("3_efdt3")]
@@ -51,8 +53,6 @@ spritesheet = ExtResource("8_d5s84")
 [node name="animalSprite3" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(922, 402)
 spritesheet = ExtResource("8_8bd4m")
-
-[node name="AnimalLeavingSprites" type="Node2D" parent="."]
 
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song", "bpmTimer")]
 wait_time = 2.0

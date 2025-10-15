@@ -3,15 +3,9 @@ extends Node2D
 @onready var sprite = $Animal
 @onready var animationPlayer = $AnimationPlayer
 
-var spritesheets = [
-	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_orange.png"),
-	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png"),
-	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_black.png"),
-	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png")
-]
-
 ## Load spritesheet from given argument into sprite
 
-func catExit(animalColour: int):
-	sprite.texture = spritesheets[animalColour]
+func catExit(animalColour: Texture, catPosition: Vector2):
+	sprite.texture = animalColour
+	global_position = catPosition
 	animationPlayer.play("leave")

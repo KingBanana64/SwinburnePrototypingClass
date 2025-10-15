@@ -9,6 +9,13 @@ extends Node2D
 
 var leavingCatScene = preload("res://RhythmTest2/leaving_cat.tscn")
 
+var spritesheets = [
+	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_orange.png"),
+	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png"),
+	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_black.png"),
+	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png")
+]
+
 # Same leniency for hold start & end
 var delay: float = 0.6
 const AUTO_FAIL_GRACE := 0.05  # helps avoid "no release" race by 50 ms
@@ -189,12 +196,18 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 func swap(animalColour: int, animalNo: int):
 	## Create leaving cat scene
 	## Instantiate leaving cat at "AnimalLeavingSpites" with current colours
+	var currAnimal = $AnimalSprites.get_children()[animalNo]
+	
 	var leavingCat = leavingCatScene.instantiate()
 	get_node("AnimalLeavingSprites").add_child(leavingCat)
-	leavingCat.catExit(animalColour)
+	leavingCat.catExit(currAnimal.get_node("Animal").texture, currAnimal.global_position)
 	
 	## Change current colours to animalColour
 	## Begin arriving animation
+	var currSpritesheet = spritesheets[animalColour]
+	
+	currAnimal.get_node("Animal").texture = currSpritesheet
+	animationHandler.AnimalAnimation(animalNo, "arrive")
 	
 
 # helper: get the 'hit time' of an event (tap=float, hold=[start,end])
