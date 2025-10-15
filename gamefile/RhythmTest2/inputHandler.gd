@@ -7,6 +7,8 @@ extends Node2D
 @onready var animationHandler = $AnimalSprites
 @onready var scoreHandler = $Score
 
+var leavingCatScene = preload("res://RhythmTest2/leaving_cat.tscn")
+
 # Same leniency for hold start & end
 var delay: float = 0.6
 const AUTO_FAIL_GRACE := 0.05  # helps avoid "no release" race by 50 ms
@@ -91,7 +93,7 @@ func _process(_delta: float) -> void:
 		## If swap time begins, begin swap
 		if swap_queue[isw][0].front() < time_passed:
 			print('SWAP CAT ' + str(isw))
-			swap(swap_queue[isw][0].back())
+			swap(swap_queue[isw][0].back(),isw)
 			swap_queue[isw].pop_front()
 	
 	last_time_passed = time_passed
@@ -184,14 +186,16 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 		return
 
 ## Chris' code, for swap function
-func swap(animalColour: int, ):
+func swap(animalColour: int, animalNo: int):
 	## Create leaving cat scene
 	## Instantiate leaving cat at "AnimalLeavingSpites" with current colours
+	var leavingCat = leavingCatScene.instantiate()
+	get_node("AnimalLeavingSprites").add_child(leavingCat)
+	leavingCat.catExit(animalColour)
 	
 	## Change current colours to animalColour
 	## Begin arriving animation
 	
-	pass
 
 # helper: get the 'hit time' of an event (tap=float, hold=[start,end])
 func _event_time(evt) -> float:
