@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=15 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
 [ext_resource type="PackedScene" uid="uid://dvsacbsmhn3je" path="res://RhythmTest2/level_editor.tscn" id="2_2h7x5"]
+[ext_resource type="Script" uid="uid://bnurwhc3wutv" path="res://RhythmTest2/background.gd" id="3_8x7s2"]
 [ext_resource type="Script" uid="uid://d3gxr1tl53a3v" path="res://RhythmTest2/score.gd" id="3_d5s84"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
 [ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://songs/McDInThePentagon_short.mp3" id="4_2h7x5"]
@@ -21,6 +22,7 @@ script = ExtResource("1_qit1x")
 position = Vector2(576, 396)
 scale = Vector2(0.491464, 0.491463)
 texture = ExtResource("6_ppsut")
+script = ExtResource("3_8x7s2")
 
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("3_d5s84")

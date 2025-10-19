@@ -1,28 +1,26 @@
 extends Node2D
+signal score_changed(new_score: float)
 
-var score: float
-var noteTotal: int
+var score: float = 0.0
+var noteTotal: int = 0
 
-## called upon throughout inputHandler.gd
-func update(value):
+func update(value: String) -> void:
 	match value:
-		
 		"bad":
-			score -= 1
-			return
+			score -= 1.0
 		"held":
-			score += 2
+			score += 2.0
 			noteTotal += 2
-
-		
 		"pet":
-			score += 4
+			score += 4.0
 		"miss":
-			score -= 1
-
-	# adds up total notes for scoring later
+			score -= 1.0
+		_:
+			pass
 	noteTotal += 4
+	emit_signal("score_changed", score)
 
-func totalScore():
-	var hitRate = (score / noteTotal) * 100
+func totalScore() -> void:
+	var denom: float = max(1.0, float(noteTotal))
+	var hitRate: float = (score / denom) * 100.0
 	print("-----\nFINAL SCORE:\n" + str(hitRate) + "%\n-----")
