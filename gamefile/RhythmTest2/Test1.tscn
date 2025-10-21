@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=20 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://d3gxr1tl53a3v" path="res://RhythmTest2/score.gd" id="3_d5s84"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
 [ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://songs/McDInThePentagon_short.mp3" id="4_2h7x5"]
+[ext_resource type="Texture2D" uid="uid://duo3sbk2fps7w" path="res://bg_animation/heart.png" id="4_8x7s2"]
+[ext_resource type="Texture2D" uid="uid://djjbw3wq0d7xj" path="res://bg_animation/spakr.png" id="5_ctjss"]
 [ext_resource type="Script" uid="uid://dv2b6aet0vcve" path="res://Animations/Animation/cat_animation.gd" id="5_iiy4d"]
 [ext_resource type="PackedScene" uid="uid://d26ebqi81u7ph" path="res://Animations/Animation/animalSprite.tscn" id="6_iiy4d"]
 [ext_resource type="Texture2D" uid="uid://dk36idcwx81hd" path="res://Animations/Sprites/backgroundSketch.webp" id="6_ppsut"]
@@ -14,6 +16,26 @@
 [ext_resource type="Texture2D" uid="uid://dmddsqe0q4e2q" path="res://Animations/Sprites/cat.webp" id="7_np6b1"]
 [ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="8_8bd4m"]
 [ext_resource type="Texture2D" uid="uid://cc1hlfncvtpla" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png" id="8_d5s84"]
+
+[sub_resource type="Gradient" id="Gradient_8x7s2"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ctjss"]
+gradient = SubResource("Gradient_8x7s2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8x7s2"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1500, 1500, 1)
+angle_min = 1.07288e-05
+angle_max = 30.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 150.0
+linear_accel_max = 200.0
+scale_min = 0.1
+scale_max = 0.2
+color = Color(1, 1, 1, 0.47451)
+color_ramp = SubResource("GradientTexture1D_ctjss")
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
@@ -23,6 +45,23 @@ position = Vector2(576, 396)
 scale = Vector2(0.491464, 0.491463)
 texture = ExtResource("6_ppsut")
 script = ExtResource("3_8x7s2")
+score_node_path = NodePath("../Score")
+hearts_path = NodePath("Hearts")
+sparkles_path = NodePath("Sparkle")
+
+[node name="Hearts" type="GPUParticles2D" parent="Background"]
+z_index = 1
+emitting = false
+amount = 10
+texture = ExtResource("4_8x7s2")
+process_material = SubResource("ParticleProcessMaterial_8x7s2")
+
+[node name="Sparkle" type="GPUParticles2D" parent="Background"]
+z_index = 2
+emitting = false
+amount = 10
+texture = ExtResource("5_ctjss")
+process_material = SubResource("ParticleProcessMaterial_8x7s2")
 
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("3_d5s84")
@@ -43,6 +82,7 @@ position = Vector2(567, 384)
 position = Vector2(914, 385)
 
 [node name="AnimalSprites" type="Node2D" parent="."]
+z_index = 5
 script = ExtResource("5_iiy4d")
 
 [node name="animalSprite1" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
@@ -74,6 +114,7 @@ volume_db = -14.41
 
 [node name="Sprite2D" type="Sprite2D" parent="Node"]
 visible = false
+z_index = 5
 position = Vector2(205, 411)
 scale = Vector2(0.289024, 0.289024)
 texture = ExtResource("7_np6b1")
