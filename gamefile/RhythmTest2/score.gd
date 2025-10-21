@@ -5,7 +5,7 @@ var score: float = 0.0
 var noteTotal: int = 0
 
 func _ready() -> void:
-	emit_signal("score_changed", score) # let listeners init
+	emit_signal("score_changed", score) 
 
 func update(value: String) -> void:
 	match value:

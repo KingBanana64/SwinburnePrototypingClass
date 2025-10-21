@@ -29,9 +29,13 @@ var animal_queue = [[]]
 var input_queue  = [[]]
 var swap_queue = [[]]
 
-# hold state (per lane)
+# hold state (per lane) — player input
 var need_release := []     # true while a hold is active (waiting for release)
 var hold_end     := []     # end time of the active hold; -1.0 if none
+
+# NEW: hold state for ANIMAL (pets) — left bracket
+var animal_hold_active := []   # per-lane: animal hold currently active
+var animal_hold_end := []      # per-lane: end time for animal hold; -1.0 if none
 
 # which lane started the mouse press (so we release the SAME lane even off hitbox)
 var active_mouse_lane: int = -1
@@ -61,7 +65,6 @@ func _process(_delta: float) -> void:
 			if evt is Array and evt.size() == 2:
 				var miss_ms := int(round((time_passed - (evt_time + delay)) * 1000.0))
 				print("hold missed (start) — missed by %d ms" % miss_ms)
-				
 			else:
 				var miss_ms2 := int(round((time_passed - (evt_time + delay)) * 1000.0))
 				print("tap passed — missed by %d ms" % miss_ms2)
@@ -86,15 +89,46 @@ func _process(_delta: float) -> void:
 			if prev < (hold_end[lane] - delay) and time_passed >= (hold_end[lane] - delay):
 				print("RELEASE NOW (hold @ %.3f)" % hold_end[lane])
 
-	# ----------------- ANIMALS - CALL ----------------
+	# ----------------- ANIMALS - CALL (now supports holds) ----------------
 	for ia in animal_queue.size():
 		if animal_queue[ia].size() == 0: continue
-		if animal_queue[ia].front() < time_passed + (delay/6):
-			animal_queue[ia].pop_front()
-			animationHandler.AnimalAnimation(ia, "call")
+		var av = animal_queue[ia].front()
+
+		# If the animal event is a HOLD [start,end]
+		if av is Array and av.size() == 2:
+			var start_t: float = float(av[0])
+			var end_t: float = float(av[1])
+			# Start when we reach the start window (same early window style)
+			if start_t <= time_passed + (delay/6):
+				animal_queue[ia][0] = end_t  # replace with END float
+				# mark active animal hold
+				_ensure_animal_hold_arrays(ia)
+				animal_hold_active[ia] = true
+				animal_hold_end[ia] = end_t
+				var dt_ms := int(round((time_passed - start_t) * 1000.0))
+				print("ANIMAL HOLD START — target %.3f, actual %.3f, Δ %d ms" % [start_t, time_passed, dt_ms])
+				animationHandler.AnimalAnimation(ia, "call")
+			continue
+
+		# If the animal event is a FLOAT
+		if typeof(av) == TYPE_FLOAT:
+			# End of an animal hold?
+			if animal_hold_active.size() > ia and animal_hold_active[ia]:
+				if av < time_passed + (delay/6):
+					animal_queue[ia].pop_front()
+					var dt_end_ms := int(round((time_passed - float(av)) * 1000.0))
+					print("ANIMAL HOLD END — target %.3f, actual %.3f, Δ %d ms" % [float(av), time_passed, dt_end_ms])
+					animal_hold_active[ia] = false
+					animal_hold_end[ia] = -1.0
+					animationHandler.AnimalAnimation(ia, "call")
+				continue
+			# Normal single animal call
+			if av < time_passed + (delay/6):
+				animal_queue[ia].pop_front()
+				print("ANIMAL CALL @ %.3f" % float(av))
+				animationHandler.AnimalAnimation(ia, "call")
 	
 	## ----------------- ANIMALS - SWAP ----------------
-	
 	for isw in swap_queue.size():
 		if swap_queue[isw].is_empty(): continue
 		## If swap time begins, begin swap
@@ -109,9 +143,7 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			# press: do nothing here (hitbox calls animalPetCheck with the correct lane)
 			return
-		# release: if we have a lane waiting for release, forward it
 		if active_mouse_lane != -1 and active_mouse_lane < input_queue.size():
 			if need_release.size() > active_mouse_lane and need_release[active_mouse_lane]:
 				animalPetCheck(active_mouse_lane, false)
@@ -123,12 +155,10 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 	if input_queue.size() == 0: return
 	if child < 0 or child >= input_queue.size(): return
 
-	# Remember which lane started the mouse press so we can release it globally
 	if ClickDown:
 		active_mouse_lane = child
 
 	if input_queue[child].size() == 0:
-		# stray release
 		if not ClickDown and need_release.size() > child and need_release[child]:
 			need_release[child] = false
 			hold_end[child] = -1.0
@@ -143,9 +173,9 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 		var end_t: float   = float(evt[1])
 		var dt := time_passed - start_t
 		var dt_ms := int(round(dt * 1000.0))
-		if abs(dt) <= delay:  # same leniency as end
+		if abs(dt) <= delay:
 			print("HOLD START — target %.3f, actual %.3f, Δ %d ms (HIT)" % [start_t, time_passed, dt_ms])
-			input_queue[child][0] = end_t          # replace front with END time
+			input_queue[child][0] = end_t
 			_ensure_hold_arrays(child)
 			need_release[child] = true
 			hold_end[child] = end_t
@@ -194,27 +224,19 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 
 ## Chris' code, for swap function
 func swap(animalColour: int, animalNo: int):
-	## Create leaving cat scene
-	## Instantiate leaving cat at "AnimalLeavingSpites" with current colours
 	var currAnimal = $AnimalSprites.get_children()[animalNo]
-	
 	var leavingCat = leavingCatScene.instantiate()
 	get_node("AnimalLeavingSprites").add_child(leavingCat)
 	leavingCat.catExit(currAnimal.get_node("Animal").texture, currAnimal.global_position)
-	
-	## Change current colours to animalColour
-	## Begin arriving animation
 	var currSpritesheet = spritesheets[animalColour]
-	
 	currAnimal.get_node("Animal").texture = currSpritesheet
 	animationHandler.AnimalAnimation(animalNo, "arrive")
-	
 
 # helper: get the 'hit time' of an event (tap=float, hold=[start,end])
 func _event_time(evt) -> float:
 	if evt is Array:
 		if evt.size() >= 1:
-			return float(evt[0])  # start used for pass-loop
+			return float(evt[0])
 		return 0.0
 	return float(evt)
 
@@ -224,10 +246,12 @@ func organise_inputs(all_arr: Array, swap_arr: Array) -> void:
 	while all_arr.size() > animal_queue.size():
 		animal_queue.append([])
 		input_queue.append([])
-		## ----------------------
+		## player hold state
 		need_release.append(false)
 		hold_end.append(-1.0)
-	## i think ^this^ is making the start times too early
+		## NEW: animal hold state
+		animal_hold_active.append(false)
+		animal_hold_end.append(-1.0)
 	
 	## same for swap array
 	while swap_arr.size() > swap_queue.size():
@@ -236,7 +260,7 @@ func organise_inputs(all_arr: Array, swap_arr: Array) -> void:
 	## assign per lane
 	for i in range(all_arr.size()):
 		var arr = all_arr[i]
-		animal_queue[i] = arr[0]
+		animal_queue[i] = arr[0]   # may now include Float or [start,end]
 		input_queue[i]  = arr[1]
 		if i >= need_release.size():
 			need_release.append(false)
@@ -244,6 +268,13 @@ func organise_inputs(all_arr: Array, swap_arr: Array) -> void:
 		else:
 			need_release[i] = false
 			hold_end[i] = -1.0
+		# reset animal hold state too
+		if i >= animal_hold_active.size():
+			animal_hold_active.append(false)
+			animal_hold_end.append(-1.0)
+		else:
+			animal_hold_active[i] = false
+			animal_hold_end[i] = -1.0
 	
 	for i in swap_arr.size():
 		swap_queue[i] = swap_arr[i]
@@ -259,3 +290,8 @@ func _ensure_hold_arrays(lane:int) -> void:
 	while lane >= need_release.size():
 		need_release.append(false)
 		hold_end.append(-1.0)
+
+func _ensure_animal_hold_arrays(lane:int) -> void:
+	while lane >= animal_hold_active.size():
+		animal_hold_active.append(false)
+		animal_hold_end.append(-1.0)
