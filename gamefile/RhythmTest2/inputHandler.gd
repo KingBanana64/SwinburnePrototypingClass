@@ -16,6 +16,9 @@ var spritesheets = [
 	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png")
 ]
 
+## Particle System
+var particle = load("res://RhythmTest2/ParticleSystem/particles.tscn")
+
 # Same leniency for hold start & end
 var delay: float = 0.6
 const AUTO_FAIL_GRACE := 0.05  # helps avoid "no release" race by 50 ms
