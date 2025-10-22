@@ -107,7 +107,7 @@ func _process(_delta: float) -> void:
 				animal_hold_end[ia] = end_t
 				var dt_ms := int(round((time_passed - start_t) * 1000.0))
 				print("ANIMAL HOLD START — target %.3f, actual %.3f, Δ %d ms" % [start_t, time_passed, dt_ms])
-				animationHandler.AnimalAnimation(ia, "call")
+				animationHandler.AnimalAnimation(ia, "call_start")
 			continue
 
 		# If the animal event is a FLOAT
@@ -120,7 +120,7 @@ func _process(_delta: float) -> void:
 					print("ANIMAL HOLD END — target %.3f, actual %.3f, Δ %d ms" % [float(av), time_passed, dt_end_ms])
 					animal_hold_active[ia] = false
 					animal_hold_end[ia] = -1.0
-					animationHandler.AnimalAnimation(ia, "call")
+					animationHandler.AnimalAnimation(ia, "call_end")
 				continue
 			# Normal single animal call
 			if av < time_passed + (delay/6):
