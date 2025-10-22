@@ -203,6 +203,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			print("HOLD END — target %.3f, actual %.3f, Δ %d ms (COMPLETED)" % [end_t, time_passed, dt_end_ms])
 			animationHandler.AnimalAnimation(child, "pet")
 			scoreHandler.update("pet")
+			## PARTICLE INITIALIZE HERE
 		else:
 			print("HOLD END — target %.3f, actual %.3f, Δ %d ms (LATE)" % [end_t, time_passed, dt_end_ms])
 			animationHandler.AnimalAnimation(child, "fail")
@@ -220,6 +221,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			print("tap done")
 			animationHandler.AnimalAnimation(child, "pet")
 			scoreHandler.update("pet")
+			## PARTICLE INITIALIZE HERE
 		else:
 			animationHandler.AnimalAnimation(child, "fail")
 			scoreHandler.update("bad")
