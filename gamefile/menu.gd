@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var SongList: ItemList = $Control/SongList
+@onready var SongList: ItemList = $Control/PanelContainer/SongList
 
 var SelectedSong: String
 
