@@ -33,28 +33,26 @@ func _ready() -> void:
 func _on_input_event(_vp: Node, event: InputEvent, _shape_idx: int) -> void:
 	## If Mouse & Left button & CLick
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		returnPosition(true)
+		returnPosition(true, event)
 
-func returnPosition(ClickDown: bool):
+func returnPosition(ClickDown: bool, event: InputEvent):
 	var i := 0
 	for child in get_parent().get_children():
 		if child.name == name:
-			InputHandler.animalPetCheck(i, ClickDown)
+			InputHandler.animalPetCheck(i, ClickDown, event)
 		else:
 			i += 1
 
 
 
 ## What does these two functions do?
-
-
-func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("note"):
-		_notes.append(area)
-		_unhit[area] = true
-
-func _on_area_exited(area: Area2D) -> void:
-	if _unhit.has(area):
-		print("KEY MISSED ", lane_label)  ## leaves box without hit
-		_unhit.erase(area)
-	_notes.erase(area)
+#func _on_area_entered(area: Area2D) -> void:
+	#if area.is_in_group("note"):
+		#_notes.append(area)
+		#_unhit[area] = true
+#
+#func _on_area_exited(area: Area2D) -> void:
+	#if _unhit.has(area):
+		#print("KEY MISSED ", lane_label)  ## leaves box without hit
+		#_unhit.erase(area)
+	#_notes.erase(area)

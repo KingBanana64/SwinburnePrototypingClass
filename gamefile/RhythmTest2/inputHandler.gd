@@ -6,6 +6,8 @@ extends Node2D
 @onready var levelEditor = $LevelEditor
 @onready var animationHandler = $AnimalSprites
 @onready var scoreHandler = $Score
+@onready var particleHandler = $ParticleHandler
+@onready var animalAreas = $AnimalAreas
 
 var leavingCatScene = preload("res://RhythmTest2/leaving_cat.tscn")
 
@@ -15,9 +17,6 @@ var spritesheets = [
 	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_black.png"),
 	load("res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png")
 ]
-
-## Particle System
-var particle = load("res://RhythmTest2/ParticleSystem/particles.tscn")
 
 # Same leniency for hold start & end
 var delay: float = 0.6
@@ -149,27 +148,27 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		if active_mouse_lane != -1 and active_mouse_lane < input_queue.size():
 			if need_release.size() > active_mouse_lane and need_release[active_mouse_lane]:
-				animalPetCheck(active_mouse_lane, false)
+				animalPetCheck(active_mouse_lane, false, event)
 		active_mouse_lane = -1
 
 ## called by hitbox_detection.gd (or mouse)
 ## ClickDown: true on press, false on release
-func animalPetCheck(child:int, ClickDown: bool) -> void:
+func animalPetCheck(child:int, ClickDown: bool, event: InputEvent = null) -> void:
 	if input_queue.size() == 0: return
 	if child < 0 or child >= input_queue.size(): return
-
+	
 	if ClickDown:
 		active_mouse_lane = child
-
+	
 	if input_queue[child].size() == 0:
 		if not ClickDown and need_release.size() > child and need_release[child]:
 			need_release[child] = false
 			hold_end[child] = -1.0
 		return
-
+	
 	var evt = input_queue[child].front()
 	var evt_time := _event_time(evt)
-
+	
 	# ---------- HOLD START (Array [start,end]) on PRESS ----------
 	if evt is Array and evt.size() == 2 and ClickDown:
 		var start_t: float = float(evt[0])
@@ -189,7 +188,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			animationHandler.AnimalAnimation(child, "fail")
 			scoreHandler.update("bad")
 		return
-
+	
 	# ---------- HOLD END (stored end float) on RELEASE ----------
 	if not ClickDown and need_release.size() > child and need_release[child] and typeof(evt) == TYPE_FLOAT:
 		var end_t: float = float(evt)
@@ -203,7 +202,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			print("HOLD END — target %.3f, actual %.3f, Δ %d ms (COMPLETED)" % [end_t, time_passed, dt_end_ms])
 			animationHandler.AnimalAnimation(child, "pet")
 			scoreHandler.update("pet")
-			## PARTICLE INITIALIZE HERE
+			particleHandler.createParticle("heart", child)
 		else:
 			print("HOLD END — target %.3f, actual %.3f, Δ %d ms (LATE)" % [end_t, time_passed, dt_end_ms])
 			animationHandler.AnimalAnimation(child, "fail")
@@ -212,7 +211,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 		need_release[child] = false
 		hold_end[child] = -1.0
 		return
-
+	
 	# ---------- TAP (single float) on PRESS (no active hold) ----------
 	if ClickDown and typeof(evt) == TYPE_FLOAT and (need_release.size() <= child or not need_release[child]):
 		var dt_tap := time_passed - evt_time
@@ -221,7 +220,7 @@ func animalPetCheck(child:int, ClickDown: bool) -> void:
 			print("tap done")
 			animationHandler.AnimalAnimation(child, "pet")
 			scoreHandler.update("pet")
-			## PARTICLE INITIALIZE HERE
+			particleHandler.createParticle("heart", event.global_position)
 		else:
 			animationHandler.AnimalAnimation(child, "fail")
 			scoreHandler.update("bad")

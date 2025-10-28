@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=14 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
@@ -7,11 +7,10 @@
 [ext_resource type="Script" uid="uid://d3gxr1tl53a3v" path="res://RhythmTest2/score.gd" id="3_d5s84"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
 [ext_resource type="AudioStream" uid="uid://bnda4u62bwjtc" path="res://songs/McDInThePentagon_short.mp3" id="4_2h7x5"]
+[ext_resource type="Script" uid="uid://w1tkl3jvf1kt" path="res://RhythmTest2/particle_handler.gd" id="4_us0kf"]
 [ext_resource type="Script" uid="uid://dv2b6aet0vcve" path="res://Animations/Animation/cat_animation.gd" id="5_iiy4d"]
 [ext_resource type="PackedScene" uid="uid://d26ebqi81u7ph" path="res://Animations/Animation/animalSprite.tscn" id="6_iiy4d"]
 [ext_resource type="Texture2D" uid="uid://dk36idcwx81hd" path="res://Animations/Sprites/backgroundSketch.webp" id="6_ppsut"]
-[ext_resource type="Script" uid="uid://beuxkyyqrkp8f" path="res://RhythmTest2/bob.gd" id="7_4uwfs"]
-[ext_resource type="Texture2D" uid="uid://dmddsqe0q4e2q" path="res://Animations/Sprites/cat.webp" id="7_np6b1"]
 [ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="8_8bd4m"]
 [ext_resource type="Texture2D" uid="uid://cc1hlfncvtpla" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png" id="8_d5s84"]
 
@@ -58,6 +57,9 @@ spritesheet = ExtResource("8_d5s84")
 position = Vector2(922, 402)
 spritesheet = ExtResource("8_8bd4m")
 
+[node name="ParticleHandler" type="Node2D" parent="."]
+script = ExtResource("4_us0kf")
+
 [node name="SongLength" type="Timer" parent="." node_paths=PackedStringArray("song", "bpmTimer")]
 wait_time = 2.0
 one_shot = true
@@ -71,16 +73,6 @@ wait_time = 447.189
 [node name="Song" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_2h7x5")
 volume_db = -14.41
-
-[node name="Node" type="Node" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Node"]
-visible = false
-z_index = 5
-position = Vector2(205, 411)
-scale = Vector2(0.289024, 0.289024)
-texture = ExtResource("7_np6b1")
-script = ExtResource("7_4uwfs")
 
 [connection signal="timeout" from="SongLength" to="." method="_on_song_length_timeout"]
 [connection signal="timeout" from="bpm" to="AnimalSprites" method="_on_bpm_timeout"]
