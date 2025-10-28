@@ -42,6 +42,9 @@ var animal_hold_end := []      # per-lane: end time for animal hold; -1.0 if non
 # which lane started the mouse press (so we release the SAME lane even off hitbox)
 var active_mouse_lane: int = -1
 
+func _ready() -> void:
+	scoreHandler.calculateTotalScore(input_queue)
+
 func _process(_delta: float) -> void:
 	var prev := last_time_passed
 	time_passed = timer.wait_time - timer.time_left
