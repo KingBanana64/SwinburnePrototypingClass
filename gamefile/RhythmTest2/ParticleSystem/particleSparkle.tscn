@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://g84l6ecwkcpn"]
+
+[ext_resource type="Texture2D" uid="uid://tibwbekpw2ub" path="res://RhythmTest2/ParticleSystem/paintSparkHalved.png" id="1_06hi2"]
+[ext_resource type="Script" uid="uid://dkvu6cfji386r" path="res://RhythmTest2/ParticleSystem/particles.gd" id="2_pcfv4"]
+
+[sub_resource type="Curve" id="Curve_smns4"]
+_limits = [0.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 360), 0.0, 37.5207, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8tyly"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.30038, 1), 0.0, 0.0, 0, 0, Vector2(0.706827, 0.811433), 0.0, 0.0, 0, 0, Vector2(0.855422, 0.27901), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[node name="Particles" type="CPUParticles2D"]
+emitting = false
+amount = 16
+texture = ExtResource("1_06hi2")
+lifetime = 0.5
+one_shot = true
+preprocess = 0.28
+explosiveness = 0.67
+randomness = 0.5
+lifetime_randomness = 0.45
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -2000)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_max = 2.0
+angular_velocity_curve = SubResource("Curve_smns4")
+angle_max = 360.0
+scale_amount_min = 0.8
+scale_amount_max = 0.8
+scale_amount_curve = SubResource("Curve_8tyly")
+script = ExtResource("2_pcfv4")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

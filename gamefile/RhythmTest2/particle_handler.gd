@@ -3,18 +3,17 @@ extends Node2D
 @onready var hitboxes = $"../AnimalAreas"
 
 ## Particle Node
-var particle = load("res://RhythmTest2/ParticleSystem/particles.tscn")
 var sprites = {
-	"heart": load("res://RhythmTest2/ParticleSystem/paintHeart.png"),
-	"sparkle": load("res://RhythmTest2/ParticleSystem/paintSpark.png")
+	"heart": load("res://RhythmTest2/ParticleSystem/particleHeart.tscn"),
+	"sparkle": load("res://RhythmTest2/ParticleSystem/particleSparkle.tscn")
 }
 
 func createParticle(type: String, location):
 	
-	var par = particle.instantiate()
+	var par
 	
 	if type in sprites:
-		par.texture = sprites[type]
+		par = sprites[type].instantiate()
 	
 	if typeof(location) == TYPE_VECTOR2:
 		par.global_position = location
