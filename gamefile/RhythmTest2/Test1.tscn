@@ -22,7 +22,6 @@ position = Vector2(576, 396)
 scale = Vector2(0.491464, 0.491463)
 texture = ExtResource("6_ppsut")
 script = ExtResource("3_8x7s2")
-score_node_path = NodePath("../Score")
 
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("3_d5s84")
