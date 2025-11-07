@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cbmkhiyhkn16i" path="res://menu.gd" id="1_lti8b"]
 [ext_resource type="Texture2D" uid="uid://bx6yrqxhdtjb7" path="res://menu.png" id="2_ouk20"]
 [ext_resource type="Texture2D" uid="uid://bvujcd7fxvvl" path="res://Animations/Sprites/MenuPlayButton.png" id="3_4hy44"]
-[ext_resource type="AudioStream" path="res://songs/menusong2.mp3" id="3_mae5d"]
+[ext_resource type="AudioStream" uid="uid://j2x22ohxjgn3" path="res://songs/bg_beat3.mp3" id="3_mae5d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ytr4m"]
 
@@ -131,7 +131,7 @@ item_1/text = "McDInThePentagon_short"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_mae5d")
-volume_db = -7.0
+volume_db = -14.41
 autoplay = true
 
 [connection signal="pressed" from="Control/start" to="." method="_on_start_pressed"]
