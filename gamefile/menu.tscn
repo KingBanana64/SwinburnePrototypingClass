@@ -1,23 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://do7liwnevxpfk"]
+[gd_scene load_steps=13 format=3 uid="uid://do7liwnevxpfk"]
 
 [ext_resource type="Script" uid="uid://cbmkhiyhkn16i" path="res://menu.gd" id="1_lti8b"]
 [ext_resource type="Texture2D" uid="uid://bx6yrqxhdtjb7" path="res://menu.png" id="2_ouk20"]
+[ext_resource type="Texture2D" uid="uid://bvujcd7fxvvl" path="res://Animations/Sprites/MenuPlayButton.png" id="3_4hy44"]
+[ext_resource type="AudioStream" path="res://songs/menusong2.mp3" id="3_mae5d"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouk20"]
-bg_color = Color(0, 0.72549, 0.905882, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.454467, 0.286237, 9.62615e-08, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-expand_margin_left = 8.0
-expand_margin_top = 8.0
-expand_margin_right = 8.0
-expand_margin_bottom = 8.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ytr4m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ytr4m"]
+texture = ExtResource("3_4hy44")
+modulate_color = Color(0.323771, 0.352706, 0.375042, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4hy44"]
+texture = ExtResource("3_4hy44")
+modulate_color = Color(0.544974, 0.544974, 0.544974, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l48gv"]
+texture = ExtResource("3_4hy44")
+modulate_color = Color(0.32549, 0.352941, 0.376471, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecwwl"]
+texture = ExtResource("3_4hy44")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4hy44"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mae5d"]
 bg_color = Color(0, 0.725, 0.906, 1)
@@ -51,37 +56,59 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 140.0
-offset_right = 989.0
-offset_bottom = 761.0
+offset_left = -6.0
+offset_top = -9.0
+offset_right = 843.0
+offset_bottom = 752.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.455203, 0.455203)
+scale = Vector2(0.583739, 0.468813)
 texture = ExtResource("2_ouk20")
 expand_mode = 2
 
-[node name="Start" type="Button" parent="Control"]
+[node name="start" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 892.0
-offset_top = 229.0
-offset_right = 1090.0
-offset_bottom = 284.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ouk20")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ouk20")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ouk20")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ouk20")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ouk20")
-text = "Start Petting"
+offset_left = 417.0
+offset_top = 251.0
+offset_right = 1154.0
+offset_bottom = 613.0
+scale = Vector2(0.401433, 0.401433)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ytr4m")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ytr4m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4hy44")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l48gv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ecwwl")
+icon = SubResource("CompressedTexture2D_4hy44")
+
+[node name="PanelContainer2" type="PanelContainer" parent="Control"]
+layout_mode = 2
+anchor_left = 0.324066
+anchor_top = -0.00153139
+anchor_right = 0.324066
+anchor_bottom = -0.00153139
+offset_left = 456.0
+offset_top = 119.0
+offset_right = 722.085
+offset_bottom = 345.85
+theme_override_styles/panel = SubResource("StyleBoxFlat_mae5d")
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/PanelContainer2"]
+layout_mode = 2
+text = "HOW TO PLAY:
+
+- Select a Song to play, then tap on \"Start Petting\".
+- Click on animals to pet them!
+- Animals will call to you in a rhythm in one bar. Click back the next bar to make them happy!
+- Get the highest score possible!"
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.443093
-anchor_top = 0.301685
-anchor_right = 0.443093
-anchor_bottom = 0.301685
+anchor_left = 0.375326
+anchor_top = 0.180704
+anchor_right = 0.375326
+anchor_bottom = 0.180704
 offset_right = 258.0
 offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mae5d")
@@ -102,5 +129,10 @@ item_count = 2
 item_0/text = "song_01"
 item_1/text = "McDInThePentagon_short"
 
-[connection signal="pressed" from="Control/Start" to="." method="_on_start_pressed"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mae5d")
+volume_db = -7.0
+autoplay = true
+
+[connection signal="pressed" from="Control/start" to="." method="_on_start_pressed"]
 [connection signal="item_clicked" from="Control/PanelContainer/SongList" to="." method="_on_song_list_item_clicked"]

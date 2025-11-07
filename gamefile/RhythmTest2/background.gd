@@ -11,16 +11,17 @@ var current_brightness: float = 0.8
 func _ready() -> void:
 	if score_node_path != NodePath(""):
 		score_node = get_node_or_null(score_node_path)
-
+	
 	if score_node == null:
 		var p: Node = get_parent()
 		if p != null and p.has_node("Score"):
 			score_node = p.get_node("Score")
-
+	
 	current_brightness = base_brightness
 	modulate = Color(current_brightness, current_brightness, current_brightness, 1.0)
 
 func _process(delta: float) -> void:
+	pass
 	_update_brightness(delta)
 
 func _update_brightness(delta: float) -> void:

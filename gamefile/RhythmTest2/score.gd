@@ -51,6 +51,14 @@ func totalScore() -> void:
 		hitRate = clamp((score / float(scoreTotal)) * 100.0, 0.0, 100.0)
 	print("-----\nFINAL SCORE:\n" + str("%0.2f" % hitRate)  + "%\n-----")
 
+func giveScore() -> int:
+	var hitRate: float = 0.0
+	if scoreTotal > 0:
+		hitRate = clamp((score / float(scoreTotal)) * 100, 0, 100)
+		return hitRate
+	else :
+		return 0
+
 func get_recent_percent() -> float:
 	if recent_ratings.is_empty():
 		return 0.0

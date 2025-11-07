@@ -9,6 +9,7 @@ extends Node2D
 @onready var particleHandler = $ParticleHandler
 @onready var animalAreas = $AnimalAreas
 
+var endMenu = preload("res://finish_menu.tscn")
 var leavingCatScene = preload("res://RhythmTest2/leaving_cat.tscn")
 
 var spritesheets = [
@@ -289,6 +290,11 @@ func organise_inputs(all_arr: Array, swap_arr: Array) -> void:
 
 func _on_song_length_timeout() -> void:
 	levelEditor.finish()
+	
+	var end = endMenu.instantiate()
+	add_child(end)
+	end.updateScore(scoreHandler.giveScore()) 
+	end.visible = true
 
 func score():
 	scoreHandler.totalScore()

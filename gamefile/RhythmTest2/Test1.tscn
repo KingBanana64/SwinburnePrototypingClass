@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=17 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
 [ext_resource type="PackedScene" uid="uid://dvsacbsmhn3je" path="res://RhythmTest2/level_editor.tscn" id="2_2h7x5"]
+[ext_resource type="Texture2D" uid="uid://dea622p1gsrl0" path="res://Animations/Sprites/Background Cropped.png" id="2_8bd4m"]
 [ext_resource type="Script" uid="uid://bnurwhc3wutv" path="res://RhythmTest2/background.gd" id="3_8x7s2"]
 [ext_resource type="Script" uid="uid://d3gxr1tl53a3v" path="res://RhythmTest2/score.gd" id="3_d5s84"]
 [ext_resource type="PackedScene" uid="uid://oh2dk081kaa0" path="res://RhythmTest2/hitbox.tscn" id="3_efdt3"]
@@ -10,18 +11,64 @@
 [ext_resource type="Script" uid="uid://w1tkl3jvf1kt" path="res://RhythmTest2/particle_handler.gd" id="4_us0kf"]
 [ext_resource type="Script" uid="uid://dv2b6aet0vcve" path="res://Animations/Animation/cat_animation.gd" id="5_iiy4d"]
 [ext_resource type="PackedScene" uid="uid://d26ebqi81u7ph" path="res://Animations/Animation/animalSprite.tscn" id="6_iiy4d"]
-[ext_resource type="Texture2D" uid="uid://dk36idcwx81hd" path="res://Animations/Sprites/backgroundSketch.webp" id="6_ppsut"]
 [ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="8_8bd4m"]
 [ext_resource type="Texture2D" uid="uid://cc1hlfncvtpla" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png" id="8_d5s84"]
+
+[sub_resource type="Animation" id="Animation_d5s84"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8bd4m"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_us0kf"]
+_data = {
+&"RESET": SubResource("Animation_d5s84"),
+&"idle": SubResource("Animation_8bd4m")
+}
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(576, 396)
-scale = Vector2(0.491464, 0.491463)
-texture = ExtResource("6_ppsut")
+position = Vector2(575, 325)
+scale = Vector2(0.599422, 0.599422)
+texture = ExtResource("2_8bd4m")
+hframes = 2
+vframes = 2
 script = ExtResource("3_8x7s2")
+
+[node name="BackgroundAnimation" type="AnimationPlayer" parent="Background"]
+libraries = {
+&"": SubResource("AnimationLibrary_us0kf")
+}
+autoplay = "idle"
 
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("3_d5s84")

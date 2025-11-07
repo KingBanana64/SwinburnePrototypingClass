@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://jiy1nuh5r0et"]
+
+[ext_resource type="Script" uid="uid://bbq7br4q383ab" path="res://finish_menu.gd" id="1_md0kn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbpfk"]
+bg_color = Color(0, 0.725, 0.906, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.171039, 0.171039, 0.171039, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="FontVariation" id="FontVariation_wf24x"]
+
+[sub_resource type="Theme" id="Theme_tbo55"]
+default_font = SubResource("FontVariation_wf24x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc1gv"]
+bg_color = Color(0, 0.72549, 0.905882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.454467, 0.286237, 9.62615e-08, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="FinishMenu" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_md0kn")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 371.0
+offset_top = 187.0
+offset_right = 747.3
+offset_bottom = 427.18
+theme_override_styles/panel = SubResource("StyleBoxFlat_mbpfk")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextBox" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 371.0
+offset_top = 203.0
+offset_right = 743.0
+offset_bottom = 423.0
+theme = SubResource("Theme_tbo55")
+theme_override_font_sizes/normal_font_size = 34
+bbcode_enabled = true
+text = "it broke :("
+scroll_active = false
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 354.0
+offset_right = 652.0
+offset_bottom = 409.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nc1gv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nc1gv")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_nc1gv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nc1gv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_nc1gv")
+text = "Main Menu"
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
