@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvv723es1bjeh"]
+[gd_scene load_steps=13 format=3 uid="uid://cvv723es1bjeh"]
 
 [ext_resource type="Script" uid="uid://crgkssx77rmyh" path="res://RhythmTest2/song_timer.gd" id="1_i77gb"]
 [ext_resource type="Script" uid="uid://dctw6tqsicglt" path="res://RhythmTest2/inputHandler.gd" id="1_qit1x"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dv2b6aet0vcve" path="res://Animations/Animation/cat_animation.gd" id="5_iiy4d"]
 [ext_resource type="PackedScene" uid="uid://d26ebqi81u7ph" path="res://Animations/Animation/animalSprite.tscn" id="6_iiy4d"]
 [ext_resource type="Texture2D" uid="uid://cq6ssijaofprm" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_white.png" id="8_8bd4m"]
+[ext_resource type="Texture2D" uid="uid://cc1hlfncvtpla" path="res://Animations/Sprites/Cats/spritesheets/spritesheet_naked.png" id="8_nwa6u"]
 
 [node name="Test1" type="Node2D"]
 script = ExtResource("1_qit1x")
@@ -45,6 +46,7 @@ position = Vector2(209, 402)
 
 [node name="animalSprite2" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(565, 402)
+spritesheet = ExtResource("8_nwa6u")
 
 [node name="animalSprite3" parent="AnimalSprites" instance=ExtResource("6_iiy4d")]
 position = Vector2(922, 402)

@@ -13,7 +13,7 @@ var EDIT_tap_times = [[[],[]]]
 var EDIT_swap_times = [[]]
 var array = [[]]
 
-## !!FIX!! assign current_level_name by outside scene
+## assign current_level_name by outside scene
 var current_level_name: String
 
 ## ----------------------------------------------------------
